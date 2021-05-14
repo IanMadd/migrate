@@ -2,12 +2,13 @@ from . import misc
 import re
 
 def mungeSyntaxBlock(text, start, end):
+  syntaxText = text[start:end]
   regexParameters = r"^#+ Parameters"
   notHeadingNotNewline = r"^[^#|\n]"
   newLine = r"^\n"
-  text = misc.removeSlash(text)
+  syntaxText = misc.removeSlash(syntaxText)
 
-  textList = text.splitlines(True)
+  textList = syntaxText.splitlines(True)
 
   foundParameters = False
   wrapLinesCount = 0
@@ -49,22 +50,18 @@ def mungeSyntaxBlock(text, start, end):
       print("found parameters:")
       foundParameters = True
 
-  text = "".join(textList)
+  syntaxText = "".join(textList)
 
   substParameters = "where:"
-  text = re.sub(regexParameters, substParameters, text, 0, re.M)
+  syntaxText = re.sub(regexParameters, substParameters, syntaxText, 0, re.M)
 
-  return {"text": text, "start": start, "end": end}
+  text = syntaxText[:start] + syntaxText + syntaxText[end:]
+  return text
 
-def extractSyntaxBlock(text):
+def openSyntaxBlock(text):
   syntaxHeadingMatch = misc.thisH2Match(text, "Syntax")
   syntaxBlockStart = syntaxHeadingMatch.end(0)
   nextH2Dict = misc.findNextH2(text, syntaxBlockStart)
   syntaxBlockEnd = nextH2Dict["matchStart"]
 
-  syntaxText = text[syntaxBlockStart: syntaxBlockEnd]
-  return {"text": syntaxText, "start": syntaxBlockStart, "end":syntaxBlockEnd}
-
-def returnSyntaxBlock(text, syntaxText, start, end):
-  outputText = text[:start] + syntaxText + text[end:]
-  return outputText
+  return {"start": syntaxBlockStart, "end":syntaxBlockEnd}
