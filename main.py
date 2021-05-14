@@ -12,8 +12,7 @@ outputDirectory = Path("../inspec-aws/docs-chef-io/content/inspec/resources")
 
 
 
-def examplesBlock(text):
-  blockHeadingText = "Examples"
+
 
 def propertiesBlock(text):
   blockHeadingText = "Properties"
