@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from . import frontmatter
 
 def readFiles(directory, output_dirs):
@@ -20,3 +21,9 @@ def readFiles(directory, output_dirs):
     if n > 0:
       break
     print(n)
+
+def outputFile(directory, file):
+  fileWithPath = Path(directory / file)
+
+  with open(fileWithPath, 'w') as fileObject:
+    fileObject.write(fileText)

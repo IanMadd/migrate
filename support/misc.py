@@ -44,7 +44,7 @@ def processCodeBlocks(text):
   editingCodeBlock = False
   loopBreak = 0
   original_text = text
-  print("Number of lines: " + str(len(textList)))
+  # print("Number of lines: " + str(len(textList)))
   for index,line in enumerate(textList):
     loopBreak += 1
     if loopBreak >= 100:
@@ -60,11 +60,11 @@ def processCodeBlocks(text):
 
     elif not foundIndentBlock and editingCodeBlock == True:
       if re.search(regularLineRegex, line):
-        print(line)
+        # print(line)
         textList[index] = "```\n\n"
         editingCodeBlock = False
 
   output = "".join(textList)
-  print(output)
+  # print(output)
   return output
 
