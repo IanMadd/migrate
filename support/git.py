@@ -7,7 +7,7 @@ def pullRepo(file_path):
   repo.remotes.origin.pull('--ff')
 
 
-def newBranch(repo, branch):
-  repo = git.Repo(repo)
+def newBranch(file_path, branch):
+  repo = git.Repo(file_path)
   repo.git.branch(branch)
   repo.git.checkout(branch)
