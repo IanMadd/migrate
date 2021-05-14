@@ -4,6 +4,7 @@ import yaml
 import toml
 from pathlib import Path
 from support import syntax
+from support import examples
 
 
 
