@@ -7,7 +7,7 @@ def removeSlash(text):
   return text
 
 def removeHeadingTitle(text):
-  h1HeadingRegex = r"^#\s[\w|\\]+\n\n"
+  h1HeadingRegex = r"^#\s[\w|\\]+\n{1,2}"
   textSubnOutput = re.subn(h1HeadingRegex, "", text, 1, re.M)
   if textSubnOutput[1] != 1:
     raise Exception('No H1 heading removed')

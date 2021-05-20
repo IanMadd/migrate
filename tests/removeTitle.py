@@ -50,3 +50,27 @@ more text
 
 def testRemoveTitle():
   assert removeHeadingTitle(inputText) == outputText
+
+inputText2 = '''---
+title: About the aws_sns_topics Resource
+---
+
+# aws\_sns\_topics
+Use the `aws_sns_topics` InSpec audit resource to test all or a group of the SNS Topic ARNs in an account.
+
+User the 'aws\_sns\_topic' InSpec audit resource to test a single SNS Topic in an account.
+
+'''
+
+outputText2 = '''---
+title: About the aws_sns_topics Resource
+---
+
+Use the `aws_sns_topics` InSpec audit resource to test all or a group of the SNS Topic ARNs in an account.
+
+User the 'aws\_sns\_topic' InSpec audit resource to test a single SNS Topic in an account.
+
+'''
+
+def testRemoveTitle2():
+  assert removeHeadingTitle(inputText2) == outputText2
