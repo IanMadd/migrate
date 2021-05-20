@@ -3,8 +3,8 @@ import re
 from pathlib import Path
 from . import openClose
 
-archetypeFile = Path('support/files/resource_archetype.md')
-goModFile = Path('support/files/go.mod')
+archetypeFile = Path('munge/files/resource_archetype.md')
+goModFile = Path('munge/files/go.mod')
 outputGoMod = 'docs-chef-io/go.mod'
 outputArchetype = 'docs-chef-io/archetypes/resource.md'
 

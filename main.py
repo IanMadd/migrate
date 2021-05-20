@@ -1,14 +1,15 @@
 import os
 import git
-from pathlib import Path
-from support import syntax
-from support import examples
-from support import misc
-from support import repo
-from support import openClose
-from support import makeFiles
-from support import frontmatter
+import sys
 
+from pathlib import Path
+import munge.syntax
+import munge.examples
+import munge.misc
+import munge.repo
+import munge.openClose
+import munge.makeFiles
+import munge.frontmatter
 
 repoList = ['../../inspec-aws', '../../inspec-azure']
 
@@ -19,16 +20,15 @@ outputDocsFilePath = "docs-chef-io/resources"
 ## checkout new branch "hugo"
 
 def run():
-
   for resourceRepo in repoList:
-    repo.pullRepo(resourceRepo)
-    repo.newBranch(resourceRepo, 'im/hugo')
+    munge.repo.pullRepo(resourceRepo)
+    munge.repo.newBranch(resourceRepo, 'im/hugo')
 
 
   ## add standard files "archetypes", "go.mod" to Hugo branch
     docsSubPathList = ["docs-chef-io/resources", "docs-chef-io/archetypes"]
-    makeFiles.makeDocsDirs(resourceRepo, docsSubPathList)
-    makeFiles.addStandardDocsFiles(resourceRepo)
+    munge.makeFiles.makeDocsDirs(resourceRepo, docsSubPathList)
+    munge.makeFiles.addStandardDocsFiles(resourceRepo)
 
 
   ## open each file
@@ -46,18 +46,39 @@ def run():
       outputFilePath = outputRepoDocsFilePath / page
       if not os.path.isdir(inputFilePath):
         print(page)
-        fileText = openClose.openFile(inputFilePath)
+        fileText = munge.openClose.openFile(inputFilePath)
 
-        fileText = frontmatter.fixFrontmatter(fileText)
-        fileText = misc.removeHeadingTitle(fileText)
-        fileText = misc.removeSlash(fileText)
-        fileText = misc.processCodeBlocks(fileText)
+        ## Sections that need processing:
+          ### Frontmatter
+          ### Title heading
+          ### Azure REST API version, endpoint and http client parameters
+          ### azure -> ## Availability
+          ### Parameters
+          ### Properties
+          ### Examples
+          ### Matchers
+          ### Azure Permissions
 
-        syntaxBlock = syntax.openSyntaxBlock(fileText)
-        fileText = syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
+        ## Frontmatter
+        fileText = munge.frontmatter.fixFrontmatter(fileText)
 
-        openClose.outputFile(outputFilePath, fileText)
+        ## Title
+        fileText = munge.misc.removeHeadingTitle(fileText)
+        fileText = munge.misc.removeSlash(fileText)
+        fileText = munge.misc.processCodeBlocks(fileText)
+
+
+        ## Syntax
+        syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
+        fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
+
+
+        ## Examples
+        examplesBlock = munge.examples.openExamples(fileText)
+        fileText = munge.examples.mungeExamples(fileText, examplesBlock['start'], examplesBlock['end'])
+
+        munge.openClose.outputFile(outputFilePath, fileText)
 
 def resetRepos():
   for resourceRepo in repoList:
-    repo.pullRepo(resourceRepo)
+    munge.repo.pullRepo(resourceRepo)

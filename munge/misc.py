@@ -68,3 +68,9 @@ def processCodeBlocks(text):
   # print(output)
   return output
 
+def formatLinks(text):
+  ## handle links to other inspec pages: use relref
+
+  ## Handle links to README pages in repo
+  
+  pass
