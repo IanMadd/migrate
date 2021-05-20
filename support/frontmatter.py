@@ -1,5 +1,6 @@
-
-
+import re
+import toml
+import yaml
 
 def fixFrontmatter(text):
   yamlRegex = r"^---\n"
@@ -11,6 +12,17 @@ def fixFrontmatter(text):
 
   #get yaml frontmatter and convert to Python dict
   frontmatter = yaml.load(text[yamlDashesList[0]: yamlDashesList[1]], Loader=yaml.FullLoader)
+
+  if not "platform" in frontmatter:
+    if 'aws' in frontmatter['title']:
+      frontmatter["platform"] = 'aws'
+    if 'azure' in frontmatter['title']:
+      frontmatter["platform"] = 'azure'
+    if 'habitat' in frontmatter['title']:
+      frontmatter["platform"] = 'habitat'
+
+  if not "title" in frontmatter or not "platform" in frontmatter:
+    raise Exception("Missing frontmatter, platform or title: " + str(frontmatter))
 
   #generate frontmatter values
   title = re.search(titleRegex, frontmatter["title"])
