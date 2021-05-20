@@ -6,24 +6,26 @@ def mungeSyntaxBlock(text, start, end):
   regexParameters = r"^#+ Parameters"
   notHeadingNotNewline = r"^[^#|\n]"
   newLine = r"^\n"
-  syntaxText = misc.removeSlash(syntaxText)
 
   textList = syntaxText.splitlines(True)
 
   foundParameters = False
+  foundFirstParameter = False
   wrapLinesCount = 0
   for index, line in enumerate(textList):
-    print(line)
+    # print(line)
+    regexParameter = r"^#+ (\w+)"
     if foundParameters:
-      regexParameter = r"^#+ (\w+)"
       substParameter = "`\\g<1>`"
       regexEmptyLine = r"^ *\n"
       regexNormalLine = r"^"
       substNewLine = ": "
       substWrapLine = "  "
+      seeAlsoTheLineRegex = r"^See also the "
 
       if re.search(regexParameter, line):
         line = re.sub(regexParameter, substParameter, line, 0, re.M)
+        foundFirstParameter = True
         # print("this is the output: ")
         # print(output)
         # textList[index] = output
@@ -31,9 +33,13 @@ def mungeSyntaxBlock(text, start, end):
 
         regexRequired = r"_\(required\)_"
         substRequired = "| `REQUIRED`"
-        textList[index] = re.sub(regexRequired, substRequired, line, 0)
+        line = re.sub(regexRequired, substRequired, line, 0)
 
-      else:
+        regexOptional = r"_\(optional\)_"
+        substOptional = "| `OPTIONAL`"
+        textList[index] = re.sub(regexOptional, substOptional, line, 0)
+
+      elif foundFirstParameter:
         if re.search(regexEmptyLine, line):
           wrapLinesCount = 0
         else:
@@ -41,13 +47,14 @@ def mungeSyntaxBlock(text, start, end):
 
         if wrapLinesCount == 0:
           continue
-        elif wrapLinesCount == 1:
+        elif wrapLinesCount == 1 and not re.search(seeAlsoTheLineRegex, line):
           textList[index] = re.sub(regexNormalLine, substNewLine, line, 1, re.M)
         else:
-          textList[index] = re.sub(regexNormalLine, substWrapLine, line, 1, re.M)
+          if not re.search(seeAlsoTheLineRegex, line):
+            textList[index] = re.sub(regexNormalLine, substWrapLine, line, 1, re.M)
 
     if re.search(regexParameters, line):
-      print("found parameters:")
+      # print("found parameters:")
       foundParameters = True
 
   syntaxText = "".join(textList)
@@ -55,7 +62,7 @@ def mungeSyntaxBlock(text, start, end):
   substParameters = "where:"
   syntaxText = re.sub(regexParameters, substParameters, syntaxText, 0, re.M)
 
-  text = syntaxText[:start] + syntaxText + syntaxText[end:]
+  text = text[:start] + syntaxText + text[end:]
   return text
 
 def openSyntaxBlock(text):
