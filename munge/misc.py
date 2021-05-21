@@ -68,9 +68,20 @@ def processCodeBlocks(text):
   # print(output)
   return output
 
+
+def removeEmptySpaces(text):
+  regex = r"^ +\n"
+  subst = "\n"
+  textList = text.splitlines(True)
+  for index,line in enumerate(textList):
+    textList[index] = re.sub(regex, subst, line, 0)
+
+  text = "".join(textList)
+  return text
+
 def formatLinks(text):
   ## handle links to other inspec pages: use relref
 
   ## Handle links to README pages in repo
-  
+
   pass
