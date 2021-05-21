@@ -4,9 +4,14 @@ import re
 def openExamples(text):
   blockHeadingText = "Examples"
   examplesHeadingMatch = misc.thisH2Match(text, blockHeadingText)
-  examplesBlockStart = examplesHeadingMatch.end(0)
-  nextH2Dict = misc.findNextH2(text, examplesBlockStart)
-  examplesBlockEnd = nextH2Dict["matchStart"]
+  print(examplesHeadingMatch)
+  if examplesHeadingMatch:
+    examplesBlockStart = examplesHeadingMatch.end(0)
+    nextH2Dict = misc.findNextH2(text, examplesBlockStart)
+    examplesBlockEnd = nextH2Dict["matchStart"]
+  else:
+    examplesBlockStart = None
+    examplesBlockEnd = None
 
   return {"start": examplesBlockStart, "end": examplesBlockEnd}
 

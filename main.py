@@ -10,6 +10,7 @@ import munge.repo
 import munge.openClose
 import munge.makeFiles
 import munge.frontmatter
+import munge.output
 
 repoList = ['../../inspec-aws', '../../inspec-azure']
 
@@ -20,6 +21,7 @@ outputDocsFilePath = "docs-chef-io/resources"
 ## checkout new branch "hugo"
 
 def run():
+  outputLog = ''
   for resourceRepo in repoList:
     munge.repo.pullRepo(resourceRepo)
     munge.repo.newBranch(resourceRepo, 'im/hugo')
@@ -46,6 +48,7 @@ def run():
       outputFilePath = outputRepoDocsFilePath / page
       if not os.path.isdir(inputFilePath):
         print(page)
+        print(inputFilePath)
         fileText = munge.openClose.openFile(inputFilePath)
 
         ## Sections that need processing:
@@ -65,8 +68,8 @@ def run():
         ## Title
         fileText = munge.misc.removeHeadingTitle(fileText)
         fileText = munge.misc.removeSlash(fileText)
+        fileText = munge.misc.removeEmptySpaces(fileText)
         fileText = munge.misc.processCodeBlocks(fileText)
-
 
         ## Syntax
         syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
@@ -75,9 +78,14 @@ def run():
 
         ## Examples
         examplesBlock = munge.examples.openExamples(fileText)
-        fileText = munge.examples.mungeExamples(fileText, examplesBlock['start'], examplesBlock['end'])
+        if examplesBlock['start']:
+          fileText = munge.examples.mungeExamples(fileText, examplesBlock['start'], examplesBlock['end'])
+        else:
+          outputLog = munge.output.log('Missing examples heading -----> ' + page , outputLog)
 
         munge.openClose.outputFile(outputFilePath, fileText)
+
+  munge.openClose.outputFile('outputLog.txt', outputLog)
 
 def resetRepos():
   for resourceRepo in repoList:
