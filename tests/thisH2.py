@@ -1,5 +1,5 @@
 import pytest
-from inspec.support.misc import thisH2Match
+from inspec.munge.misc import thisH2Match
 
 inputString = """
 some text

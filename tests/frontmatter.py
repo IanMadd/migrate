@@ -1,5 +1,5 @@
 import pytest
-from inspec.support.misc import fixFrontmatter
+from inspec.munge.misc import fixFrontmatter
 
 aws_frontmatter_input = """---
 title: About the aws_ec2_dhcp_option Resource

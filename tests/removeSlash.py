@@ -1,5 +1,5 @@
 import pytest
-from inspec.support.misc import removeSlash
+from inspec.munge.misc import removeSlash
 
 inputString = '''# aws\_alb
 

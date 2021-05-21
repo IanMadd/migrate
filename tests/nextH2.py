@@ -1,5 +1,5 @@
 import pytest
-from inspec.support.misc import findNextH2
+from inspec.munge.misc import findNextH2
 
 inputString = """
 some text

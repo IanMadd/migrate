@@ -1,5 +1,5 @@
 import pytest
-from inspec.support.examples import openExamples, mungeExamples
+from inspec.munge.examples import openExamples, mungeExamples
 
 inputString = """## Properties
 
