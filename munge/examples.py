@@ -17,8 +17,6 @@ def openExamples(text):
 
 def mungeExamples(text, start, end):
   examplesText = text[start:end]
-  examplesText = misc.removeSlash(examplesText)
-  examplesText = misc.processCodeBlocks(examplesText)
   exampleHeadingRegex = r"#+ ([\S| ]+)"
   periodEndOfHeadingRegex = r"\.$"
   emptyLineRegex = r"^\n"

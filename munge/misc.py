@@ -79,9 +79,20 @@ def removeEmptySpaces(text):
   text = "".join(textList)
   return text
 
-def formatLinks(text):
-  ## handle links to other inspec pages: use relref
+def formatLinks(text, repo):
 
   ## Handle links to README pages in repo
+  readmeLinkRegex = r'\[README\]\(\.\./\.\./README\.md'
+  if "inspec-azure" in repo:
+    readmeSubstLink = '[README](https://github.com/inspec/inspec-azure/blob/master/README.md'
+  elif "inspec-aws" in repo:
+    readmeSubstLink = '[README](https://github.com/inspec/inspec-aws/blob/master/README.md'
 
-  pass
+  text = re.sub(readmeLinkRegex, readmeSubstLink, text, 0, re.M)
+
+  ## Handle all links that don't start with "http"
+  localFileRegex = r"\]\(([^(http)][\w|\.|\#]+)\)"
+  localFileSubst = "]({{< relref \"\\g<1>\" >}})"
+  text = re.sub(localFileRegex, localFileSubst, text, 0, re.M)
+
+  return text

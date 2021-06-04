@@ -1,0 +1,2 @@
+All azure resources have a set of common properties. That's a block of text that we could add 
+to each page's text similar to: https://docs.chef.io/resources/apt_repository/#functionality

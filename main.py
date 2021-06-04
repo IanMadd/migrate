@@ -67,9 +67,12 @@ def run():
 
         ## Title
         fileText = munge.misc.removeHeadingTitle(fileText)
+
+        ## Miscellaneous
         fileText = munge.misc.removeSlash(fileText)
         fileText = munge.misc.removeEmptySpaces(fileText)
         fileText = munge.misc.processCodeBlocks(fileText)
+        fileText = munge.misc.formatLinks(fileText, repo)
 
         ## Syntax
         syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
