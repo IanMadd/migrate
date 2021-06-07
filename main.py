@@ -76,8 +76,10 @@ def run():
 
         ## Syntax
         syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
-        fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
-
+        if syntaxBlock['start'] and syntaxBlock['end']:
+          fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
+        else:
+          outputLog = munge.output.log('Missing Syntax heading -----> ' + page , outputLog)
 
         ## Examples
         examplesBlock = munge.examples.openExamples(fileText)

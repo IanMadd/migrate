@@ -67,8 +67,12 @@ def mungeSyntaxBlock(text, start, end):
 
 def openSyntaxBlock(text):
   syntaxHeadingMatch = misc.thisH2Match(text, "Syntax")
-  syntaxBlockStart = syntaxHeadingMatch.end(0)
-  nextH2Dict = misc.findNextH2(text, syntaxBlockStart)
-  syntaxBlockEnd = nextH2Dict["matchStart"]
+  if syntaxHeadingMatch:
+    syntaxBlockStart = syntaxHeadingMatch.end(0)
+    nextH2Dict = misc.findNextH2(text, syntaxBlockStart)
+    syntaxBlockEnd = nextH2Dict["matchStart"]
+  else:
+    syntaxBlockStart = None
+    syntaxBlockEnd = None
 
   return {"start": syntaxBlockStart, "end":syntaxBlockEnd}
