@@ -48,7 +48,6 @@
 ### **AWS**
 
 1. Fix the frontmatter
-
 1. Title
    - delete the title
 1. Add install section like in Azure resource docs.
