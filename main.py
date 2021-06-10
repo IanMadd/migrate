@@ -13,6 +13,7 @@ import munge.frontmatter
 import munge.output
 import munge.awsInstall
 import munge.azureInstall
+import munge.azureParameters
 
 repoList = ['../../inspec-aws', '../../inspec-azure']
 
@@ -89,6 +90,10 @@ def run():
         elif "inspec-azure" in repo:
           fileText = munge.azureInstall.replaceInstallHeadings(fileText)
           fileText = munge.azureInstall.replaceInstallText(fileText)
+
+        ## Azure REST API Version, Endpoint, and HTTP Client Parameters
+        if "inspec-azure" in repo:
+          fileText = munge.azureParameters.azureCommonParameters(fileText)
 
         ## Examples
         examplesBlock = munge.examples.openExamples(fileText)
