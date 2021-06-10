@@ -11,6 +11,8 @@ import munge.openClose
 import munge.makeFiles
 import munge.frontmatter
 import munge.output
+import munge.awsInstall
+import munge.azureInstall
 
 repoList = ['../../inspec-aws', '../../inspec-azure']
 
@@ -80,6 +82,13 @@ def run():
           fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
         else:
           outputLog = munge.output.log('Missing Syntax heading -----> ' + page , outputLog)
+
+        ## Installation
+        if "inspec-aws" in repo:
+          fileText = munge.awsInstall.addAwsInstallText(fileText)
+        elif "inspec-azure" in repo:
+          fileText = munge.azureInstall.replaceInstallHeadings(fileText)
+          fileText = munge.azureInstall.replaceInstallText(fileText)
 
         ## Examples
         examplesBlock = munge.examples.openExamples(fileText)
