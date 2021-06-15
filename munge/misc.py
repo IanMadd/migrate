@@ -1,10 +1,10 @@
 import re
 
 def removeSlash(text):
-  regex = r"(\\_)"
+  regex = r"\\_"
   subst = "_"
-  text = re.sub(regex, subst, text, 0, re.MULTILINE)
-  return text
+  result = re.sub(regex, subst, text, 0, re.MULTILINE)
+  return result
 
 def removeHeadingTitle(text):
   h1HeadingRegex = r"^#\s[\w|\\]+\n{1,2}"
