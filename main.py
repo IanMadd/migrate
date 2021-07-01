@@ -59,7 +59,11 @@ def run():
         fileText = munge.frontmatter.fixFrontmatter(fileText)
 
         ## Title
-        fileText = munge.misc.removeHeadingTitle(fileText)
+        removeHeadingTitleText = munge.misc.removeHeadingTitle(fileText)
+        if removeHeadingTitleText[1] != 1:
+          outputLog = munge.output.log("Title missing -----> " + page, outputLog)
+        else:
+          fileText = removeHeadingTitleText[0]
 
         ## Miscellaneous
         fileText = munge.misc.removeSlash(fileText)

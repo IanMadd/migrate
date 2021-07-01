@@ -9,12 +9,8 @@ def removeSlash(text):
 def removeHeadingTitle(text):
   h1HeadingRegex = r"^#\s[\w|\\]+\n{1,2}"
   textSubnOutput = re.subn(h1HeadingRegex, "", text, 1, re.M)
-  if textSubnOutput[1] != 1:
-    raise Exception('No H1 heading removed')
-  else:
-    text = textSubnOutput[0]
 
-  return text
+  return textSubnOutput
 
 def thisH2Match(text, headingString):
   regex = r"^##\s" + headingString
