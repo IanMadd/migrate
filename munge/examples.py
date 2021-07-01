@@ -4,7 +4,6 @@ import re
 def openExamples(text):
   blockHeadingText = "Examples"
   examplesHeadingMatch = misc.thisH2Match(text, blockHeadingText)
-  print(examplesHeadingMatch)
   if examplesHeadingMatch:
     examplesBlockStart = examplesHeadingMatch.end(0)
     nextH2Dict = misc.findNextH2(text, examplesBlockStart)
