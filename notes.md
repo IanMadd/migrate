@@ -48,6 +48,8 @@
 ### **AWS**
 
 1. Fix the frontmatter
+1. Add blank lines after headings
+1. Add blank lines around all codeblocks
 1. Title
    - delete the title
 1. Add install section like in Azure resource docs.
@@ -57,6 +59,9 @@
       1. Remove "Parameters" heading and replace with "where:"
       1. Each parameter becomes a definition list item
       1. Process parameter required or optional values
+      1. Each parameter section has a link to the AWS docs, for example: "For additional information, see the AWS documentation on ElasticLoadBalancingV2 LoadBalancer". 
+         1. Move this to the top of the page after the intro paragraph.
+         1. Change to "For additional information, including details on parameters and properties, see the [ElasticLoadBalancingV2 LoadBalancer documentation]."
 1. Properties
    1. Properties should be in a definition list, not a table
    1. Plural resources have a Field, which is just the singular key of the property.
@@ -75,6 +80,8 @@
 ### **Azure**
 
 1. Fix the frontmatter
+1. Add blank lines after headings
+1. Add blank lines around all codeblocks
 1. Title
    - delete the title
 1. Azure REST API version, endpoint and http client parameters
