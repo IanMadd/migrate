@@ -3,17 +3,7 @@ import git
 import sys
 
 from pathlib import Path
-import munge.syntax
-import munge.examples
-import munge.misc
-import munge.repo
-import munge.openClose
-import munge.makeFiles
-import munge.frontmatter
-import munge.output
-import munge.awsInstall
-import munge.azureInstall
-import munge.azureParameters
+import munge
 
 repoList = ['../../inspec-aws', '../../inspec-azure']
 
