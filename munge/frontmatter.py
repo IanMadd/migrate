@@ -3,9 +3,18 @@ import toml
 import yaml
 
 def fixFrontmatter(text):
+  errorLogText = ''
   yamlRegex = r"^---\n"
+  yamlSpaceRegex = r"^ {1,}--- {0,}\n"
   titleRegex = r"(\w+)\sResource$"
   identifierBaseString = "inspec/resources/"
+
+  #Find and log bad yaml frontmatter lines
+
+  if re.search(yamlSpaceRegex, text, re.M):
+    errorLogText += "Wrong YAML frontmatter:\n\n" + text + "\n\n"
+    text = re.sub(yamlSpaceRegex, "---\n", text, 2, re.M)
+    print(text)
 
   #get location of preceding and trailing frontmatter yaml markers: ---
   yamlDashesList = [m.start() for m in re.finditer(yamlRegex, text, re.M)]
@@ -26,24 +35,30 @@ def fixFrontmatter(text):
 
   #generate frontmatter values
   title = re.search(titleRegex, frontmatter["title"])
-  menuParent = identifierBaseString + frontmatter["platform"]
-  menuIdentifier = menuParent + "/" + title.group(0)
+  print("This is the tile value: " + str(title))
+  if title == None:
+    errorLogText += "Missing proper title: " + str(frontmatter) + "\n"
 
-  #make menu frontmatter
-  menuDict = {"title": title.group(1), "identifier": menuIdentifier, "parent": menuParent}
+  else:
+    menuParent = identifierBaseString + frontmatter["platform"]
+    menuIdentifier = menuParent + "/" + title.group(0)
 
-  #update frontmatter dict
-  frontmatter["title"] = title.group(0)
-  frontmatter["draft"] = False
-  frontmatter["gh_repo"] = "inspec-" + frontmatter["platform"]
+    #make menu frontmatter
+    menuDict = {"title": title.group(1), "identifier": menuIdentifier, "parent": menuParent}
 
-  frontmatter["menu"] = {"inspec": menuDict}
-  tomlFrontmatter = toml.dumps(frontmatter)
-  # print(tomlFrontmatter)
+    #update frontmatter dict
+    frontmatter["title"] = title.group(0)
+    frontmatter["draft"] = False
+    frontmatter["gh_repo"] = "inspec-" + frontmatter["platform"]
 
-  text = re.sub(r"^---", "+++", text, 2, re.M)
-  text = text[0 : yamlDashesList[0] + 3] + "\n" + tomlFrontmatter + text[yamlDashesList[1]:]
-  # print(text)
+    frontmatter["menu"] = {"inspec": menuDict}
+    tomlFrontmatter = toml.dumps(frontmatter)
+    # print(tomlFrontmatter)
 
-  return text
+    text = re.sub(r"^---", "+++", text, 2, re.M)
+    text = text[0 : yamlDashesList[0] + 3] + "\n" + tomlFrontmatter + text[yamlDashesList[1]:]
+    # print(text)
+
+  return text, errorLogText
+
 

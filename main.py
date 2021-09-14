@@ -56,7 +56,9 @@ def run():
           ### Azure Permissions
 
         ## Frontmatter
-        fileText = munge.frontmatter.fixFrontmatter(fileText)
+        fileText, returnFrontMatterErrorLogText = munge.frontmatter.fixFrontmatter(fileText)
+        if returnFrontMatterErrorLogText != '':
+          outputLog = munge.output.log(returnFrontMatterErrorLogText, outputLog)
 
         ## Title
         removeHeadingTitleText = munge.misc.removeHeadingTitle(fileText)
