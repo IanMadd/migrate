@@ -1,7 +1,6 @@
 from . import (
   awsInstall, 
   azureInstall, 
-  azurePermissions, 
   azureParameters, 
   examples, 
   frontmatter, 

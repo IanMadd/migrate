@@ -5,7 +5,7 @@ def pullRepo(file_path):
   repo = git.Repo(file_path)
   repo.git.reset('--hard')
   repo.git.clean('-fd')
-  repo.git.checkout('master')
+  repo.git.checkout('main')
   repo.remotes.origin.pull('--ff')
 
 
