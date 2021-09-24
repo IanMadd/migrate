@@ -12,5 +12,6 @@ from . import (
   properties, 
   readme, 
   repo, 
-  syntax
+  syntax,
+  tableToDict
 )
