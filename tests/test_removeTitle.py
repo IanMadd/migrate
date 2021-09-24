@@ -49,7 +49,7 @@ more text
 '''
 
 def testRemoveTitle():
-  assert removeHeadingTitle(inputText) == outputText
+  assert removeHeadingTitle(inputText) == (outputText, 1)
 
 inputText2 = '''---
 title: About the aws_sns_topics Resource
@@ -73,4 +73,4 @@ User the 'aws\_sns\_topic' InSpec audit resource to test a single SNS Topic in a
 '''
 
 def testRemoveTitle2():
-  assert removeHeadingTitle(inputText2) == outputText2
+  assert removeHeadingTitle(inputText2) == (outputText2, 1)
