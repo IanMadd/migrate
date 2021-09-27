@@ -21,4 +21,4 @@ parent = "inspec/resources/aws"
 """
 
 def test_fixFrontmatter():
-  assert fixFrontmatter(aws_frontmatter_input) == aws_frontmatter_output
+  assert fixFrontmatter(aws_frontmatter_input) == ( aws_frontmatter_output, '')
