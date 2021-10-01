@@ -13,6 +13,18 @@ def findTableInText(text):
 
   return tableStartMatch.start(), tableEnd
 
+def goodTable(table):
+  tableIsGood = True
+  tableLines = table.splitlines()
+  columnsNumber = len(re.findall(r"\|", tableLines[0]))
+
+  for line in tableLines:
+    if len(re.findall(r"\|", line)) != columnsNumber:
+      tableIsGood = False
+
+  return tableIsGood
+
+
 def convertTableToDict(text):
   errorText = ''
   dictList = []
@@ -78,9 +90,8 @@ if __name__ == "__main__":
 
   inputTable1='''|Property                                    | Description                                       |   Field           |
 | ----------------------------               | ---------------------------------                 |   ---             |
-| route_table_ids                          | The route table IDs                               |
-| vpc_ids                                   | The VPC IDs                                       | `vpc_id`          |
+| route_table_ids                          | The route table IDs                               | |
+| vpc_ids                                   | The VPC IDs                                        `vpc_id`          |
 | entries                                    | Provides access to the raw results of the query, which can be treated as an array of hashes. | Not Applicable | '''
 
-  convertTableToDict(inputTable1)
-  print(convertTableToDict(inputTable1))
+  print(goodTable(inputTable1))
