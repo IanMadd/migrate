@@ -1,6 +1,6 @@
 import pytest
 from inspec.munge.tableToDict import convertTableToDict
-
+from inspec.munge.tableToDict import findTableInText
 
 inputTable1='''|Property       | Description|
 | ---           | --- |
@@ -85,3 +85,29 @@ outputDict6 = ('', 'Error. Incorrectly formatted table: |Property               
 
 def test_convertTableToDict6():
   assert convertTableToDict(inputTable6) == ('', 'Error. Incorrectly formatted table: ' + inputTable6)
+
+inputTable7 = '''
+
+|Property                                    | Description                                       |   Field           |
+| ----------------------------               | ---------------------------------                 |   ---             |
+| route_table_ids                          | The route table IDs                               | `vpc_id`          |
+
+Some words here. Ignore this.
+
+'''
+
+def test_findTableInText1():
+  assert findTableInText(inputTable7) == (2, 356)
+
+inputTable8 = '''
+
+|Property                                    | Description                                       |   Field           |
+| ----------------------------               | ---------------------------------                 |   ---             |
+| route_table_ids                          | The route table IDs                               | `vpc_id`          |
+
+Some words here. Ignore this. Let's add a pipe for fun. |
+
+'''
+
+def test_findTableInText12():
+  assert findTableInText(inputTable8) == (2, 356)

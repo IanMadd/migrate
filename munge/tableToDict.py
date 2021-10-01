@@ -6,13 +6,12 @@ def tableExists(text):
 
 def findTableInText(text):
   tableStartRegex = r'^ {0,}\|'
-  tableEndRegex = r'\| {0,}$'
+  tableEndRegex = r"\|\n$ {0,}\n"
   tableStartMatch = re.search(tableStartRegex, text, re.M)
+  tableEndMatch = re.search(tableEndRegex, text[tableStartMatch.end():], re.M)
+  tableEnd = tableStartMatch.end() + tableEndMatch.start() + 1
 
-  for tableEndMatch in re.finditer(tableEndRegex, text, re.M):
-    pass
-
-  return tableStartMatch.start(), tableEndMatch.end()
+  return tableStartMatch.start(), tableEnd
 
 def convertTableToDict(text):
   errorText = ''
