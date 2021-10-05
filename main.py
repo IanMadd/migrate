@@ -98,6 +98,16 @@ def run():
         else:
           outputLog = munge.output.log('Missing examples heading -----> ' + page , outputLog)
 
+        ## Parameters
+
+        ## Properties
+        startEnd = munge.properties.openProperties(fileText)
+        propertiesOutput = munge.properties.mungeProperties(fileText, startEnd['start'], startEnd['end'])
+        if propertiesOutput[1] != '':
+          outputLog = munge.output.log('Properties Table Problem -----> ' + page + '\n\n' + propertiesOutput[1], outputLog)
+        else:
+          fileText = munge.misc.mergeTextCorrectEmptyLines(fileText[:startEnd['start']], propertiesOutput[0], fileText[startEnd['end']:])
+
         munge.openClose.outputFile(outputFilePath, fileText)
 
   munge.openClose.outputFile('outputLog.txt', outputLog)

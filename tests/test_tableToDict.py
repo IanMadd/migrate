@@ -97,7 +97,7 @@ Some words here. Ignore this.
 '''
 
 def test_findTableInText1():
-  assert findTableInText(inputTable7) == (2, 356)
+  assert findTableInText(inputTable7) == ({'end': 356, 'start': 2})
 
 inputTable8 = '''
 
@@ -110,4 +110,4 @@ Some words here. Ignore this. Let's add a pipe for fun. |
 '''
 
 def test_findTableInText12():
-  assert findTableInText(inputTable8) == (2, 356)
+  assert findTableInText(inputTable8) == ({'end': 356, 'start': 2})

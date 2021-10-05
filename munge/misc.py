@@ -92,3 +92,10 @@ def formatLinks(text, repo):
   text = re.sub(localFileRegex, localFileSubst, text, 0, re.M)
 
   return text
+
+def mergeTextCorrectEmptyLines(upperText, insertText, lowerText):
+  upperText = upperText.rstrip() + '\n\n'
+  lowerText = '\n\n' + lowerText.lstrip()
+  insertText = insertText.strip()
+
+  return upperText + insertText + lowerText

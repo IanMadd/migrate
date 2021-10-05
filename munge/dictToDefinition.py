@@ -4,7 +4,6 @@ def convertDictToDef(dict):
   definitionsMarkdown = ''
 
   for term in dict:
-
     for key, value in term.items():
       if key == "property":
         definitionsMarkdown += '`' + value + '`\n'
@@ -17,8 +16,7 @@ def convertDictToDef(dict):
 
     definitionsMarkdown += "\n"
 
-  definitionsMarkdown = "\n" + definitionsMarkdown
-  return definitionsMarkdown
+  return definitionsMarkdown.strip()
 
 if __name__ == '__main__':
   dict1 = [{'property': 'bucket_name', 'description': 'The name of the bucket.'},
