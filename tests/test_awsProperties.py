@@ -1,6 +1,6 @@
 import pytest
-from inspec.munge.properties import *
-from inspec.munge.misc import mergeTextCorrectEmptyLines
+from migrate.munge.properties import *
+from migrate.munge.misc import mergeTextCorrectEmptyLines
 
 inputText1 = '''
 See also the [AWS documentation on Elastic Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference).

@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.azureInstall import *
+from migrate.munge.azureInstall import *
 
 
 inputText = '''

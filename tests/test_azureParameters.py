@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.azureParameters import azureCommonParameters
+from migrate.munge.azureParameters import azureCommonParameters
 
 
 inputText = '''

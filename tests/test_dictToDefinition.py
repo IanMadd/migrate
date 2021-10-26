@@ -1,4 +1,4 @@
-from inspec.munge.dictToDefinition import convertDictToDef
+from migrate.munge.dictToDefinition import convertDictToDef
 
 
 dict1 = [{'property': 'bucket_name', 'description': 'The name of the bucket.'},

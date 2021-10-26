@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.misc import removeEmptySpaces
+from migrate.munge.misc import removeEmptySpaces
 
 inputString = '''Use the `aws_iam_user` InSpec audit resource to test properties of a single AWS IAM User.
     

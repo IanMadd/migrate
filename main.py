@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 import munge
 
-repoList = ['../../inspec-aws', '../../inspec-azure']
+repoList = ['../inspec-aws', '../inspec-azure']
 
 inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/resources"

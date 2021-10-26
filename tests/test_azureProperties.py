@@ -1,6 +1,6 @@
 import pytest
-from inspec.munge.properties import *
-from inspec.munge.misc import mergeTextCorrectEmptyLines
+from migrate.munge.properties import *
+from migrate.munge.misc import mergeTextCorrectEmptyLines
 
 inputText1 = '''
 ## Parameters

@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.misc import removeHeadingTitle
+from migrate.munge.misc import removeHeadingTitle
 
 
 inputText = '''---

@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.syntax import mungeSyntaxBlock
+from migrate.munge.syntax import mungeSyntaxBlock
 
 inputSyntaxBlock = """
 Ensure that an `aws_alb` exists

@@ -1,6 +1,6 @@
 import re
 
-from inspec.munge.misc import mergeTextCorrectEmptyLines
+from migrate.munge.misc import mergeTextCorrectEmptyLines
 
 topString1 = '''sometext'''
 

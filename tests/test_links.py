@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.misc import formatLinks
+from migrate.munge.misc import formatLinks
 
 inputLinkText = """## Azure Permissions
 

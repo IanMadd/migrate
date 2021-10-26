@@ -3,3 +3,6 @@ run:
 
 reset:
 	python3 -c 'import main; main.resetRepos()'
+
+env:
+	pyenv activate inspecMunge

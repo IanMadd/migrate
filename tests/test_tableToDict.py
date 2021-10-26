@@ -1,6 +1,6 @@
 import pytest
-from inspec.munge.tableToDict import convertTableToDict
-from inspec.munge.tableToDict import findTableInText
+from migrate.munge.tableToDict import convertTableToDict
+from migrate.munge.tableToDict import findTableInText
 
 inputTable1='''|Property       | Description|
 | ---           | --- |

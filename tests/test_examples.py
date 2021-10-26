@@ -1,6 +1,6 @@
 import pytest
-from inspec.munge.examples import openExamples, mungeExamples
-from inspec.munge.misc import processCodeBlocks, removeEmptySpaces, removeSlash
+from migrate.munge.examples import openExamples, mungeExamples
+from migrate.munge.misc import processCodeBlocks, removeEmptySpaces, removeSlash
 
 inputString = """## Properties
 

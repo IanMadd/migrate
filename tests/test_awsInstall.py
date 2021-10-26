@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.awsInstall import *
+from migrate.munge.awsInstall import *
 
 inputText = """
 # aws\_cloudformation\_stack

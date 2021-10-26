@@ -1,5 +1,5 @@
 import pytest
-from inspec.munge.misc import processCodeBlocks
+from migrate.munge.misc import processCodeBlocks
 
 
 codeblockOne = """This is a codeblock:
