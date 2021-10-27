@@ -100,6 +100,12 @@ def run():
 
         ## Parameters
 
+        ### Azure Parameters
+        fileText = munge.azureParameters.azureCommonParameters(fileText)
+
+        ### AWS Parameters
+
+
         ## Properties
         startEnd = munge.properties.openProperties(fileText)
         propertiesOutput = munge.properties.mungeProperties(fileText, startEnd['start'], startEnd['end'])
