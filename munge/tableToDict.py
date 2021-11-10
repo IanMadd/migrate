@@ -35,6 +35,8 @@ def goodTable(table):
 
 
 def convertTableToDict(text):
+  startLineBarRegex = r"^ {0,}\|"
+  endLineBarRegex = r"\| {0,}$"
   errorText = ''
   field = ''
   dictList = []
@@ -68,17 +70,31 @@ def convertTableToDict(text):
   if errorText == '':
 
     for line in lines[2:]:
+      print(line)
+      print(line + 'end of line')
 
-      if line.count('|') > len(keys) + 1:
+      lineCount = line.count('|')
+      if lineCount > len(keys) + 1:
         errorText = 'Error. Incorrectly formatted table: ' + text
-      elif line.count('|') == len(keys):
+      elif lineCount == len(keys):
         errorText = 'Error. Incorrectly formatted table: ' + text
 
       else:
+        line = re.sub(startLineBarRegex, "", line, 1)
+        line = re.sub(endLineBarRegex, "", line, 1)
         lineList = line.split('|')
-        lineList = [line.strip() for line in lineList]
-        while('' in lineList):
-          lineList.remove('')
+
+        # lineList = [line.strip() for line in lineList]
+
+        for index, item in enumerate(lineList):
+          lineItem = item.strip()
+          if lineItem == '':
+            print("What's going on?")
+            lineItem = "Not Applicable"
+
+          lineList[index] = lineItem
+
+        print("Printing processed Linelist: " + str(lineList))
 
         dict = {}
         for index,key in enumerate(keys):
@@ -97,7 +113,6 @@ def convertTableToDict(text):
               lineList[index] = lineList[index] + '`'
 
           dict[key] = lineList[index].strip()
-
 
         if field != '':
           dict['field'] = field
