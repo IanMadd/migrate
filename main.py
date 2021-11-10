@@ -4,9 +4,9 @@ from pathlib import Path
 repoList = ['../inspec-aws', '../inspec-azure']
 
 inputDocsFilePath = "docs/resources/"
-outputDocsFilePath = "docs-chef-io/resources"
+outputDocsFilePath = "docs-chef-io/content/inspec/resources"
 
-## mungeFile should accept three parameters, the full filepath, the page name, the 
+
 def mungeFile(filePath):
 
   page, repo = munge.misc.returnPageAndRepo(filePath)

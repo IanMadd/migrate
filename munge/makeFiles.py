@@ -29,6 +29,9 @@ def addStandardDocsFiles(repo):
   elif 'inspec-habitat' in repo:
     print('hab')
     platform = 'habitat'
+  elif 'inspec-alicloud' in repo:
+    print('alicloud')
+    platform = 'alicloud'
   else:
     os.error
 
