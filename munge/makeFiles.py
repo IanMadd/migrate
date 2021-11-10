@@ -12,7 +12,8 @@ outputArchetype = 'docs-chef-io/archetypes/resource.md'
 def makeDocsDirs(repo, subPathList):
   for subPath in subPathList:
     path = os.path.join(repo, subPath)
-    os.makedirs(path)
+    if not os.path.isdir(path):
+      os.makedirs(path)
 
 def addStandardDocsFiles(repo):
 
