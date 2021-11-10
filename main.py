@@ -9,13 +9,7 @@ outputDocsFilePath = "docs-chef-io/resources"
 ## mungeFile should accept three parameters, the full filepath, the page name, the 
 def mungeFile(filePath):
 
-  filePathSplit = str(filePath).split('/')
-  page = filePathSplit[-1]
-
-  for section in filePathSplit:
-    if 'inspec-' in section:
-      repo = section
-      break
+  page, repo = munge.misc.returnPageAndRepo(filePath)
 
   fileOutputLog = ''
   fileText = munge.openClose.openFile(filePath)

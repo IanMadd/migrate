@@ -99,3 +99,14 @@ def mergeTextCorrectEmptyLines(upperText, insertText, lowerText):
   insertText = insertText.strip()
 
   return upperText + insertText + lowerText
+
+def returnPageAndRepo(fullPageFilePath):
+  filePathSplit = str(fullPageFilePath).split('/')
+  page = filePathSplit[-1]
+
+  for section in filePathSplit:
+    if 'inspec-' in section:
+      repo = section
+      break
+
+  return page, repo
