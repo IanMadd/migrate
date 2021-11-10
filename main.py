@@ -105,6 +105,9 @@ def run():
     inputRepoDocsFilePath = Path(repo) / inputDocsFilePath
     outputRepoDocsFilePath = Path(repo) / outputDocsFilePath
 
+    if not os.path.isdir(outputRepoDocsFilePath):
+      os.makedirs(outputRepoDocsFilePath)
+
     resourcePages = os.listdir(inputRepoDocsFilePath)
 
     print("\n++++++++++++++++++++++++++++++++++\n\n" + "Repo: " + repo + "\n\n++++++++++++++++++++++++++++++++++\n")
