@@ -86,6 +86,7 @@ def mungeFile(filePath):
   return fileText, fileOutputLog
 
 def run():
+  outputLog = ''
   for resourceRepo in repoList:
     munge.repo.pullRepo(resourceRepo)
     munge.repo.newBranch(resourceRepo, 'im/hugo')
@@ -100,7 +101,7 @@ def run():
   ## open each file
 
   for repo in repoList:
-    outputLog = ''
+    outputLog += "\n++++++++++++++++++++++++++++++++++\n\nRepo: " + repo + "\n\n++++++++++++++++++++++++++++++++++\n\n"
     print(repo)
     inputRepoDocsFilePath = Path(repo) / inputDocsFilePath
     outputRepoDocsFilePath = Path(repo) / outputDocsFilePath
@@ -110,7 +111,7 @@ def run():
 
     resourcePages = os.listdir(inputRepoDocsFilePath)
 
-    print("\n++++++++++++++++++++++++++++++++++\n\n" + "Repo: " + repo + "\n\n++++++++++++++++++++++++++++++++++\n")
+    print("\n++++++++++++++++++++++++++++++++++\n\nRepo: " + repo + "\n\n++++++++++++++++++++++++++++++++++\n\n")
     for page in resourcePages:
       print(page)
       inputFilePath = inputRepoDocsFilePath / page
