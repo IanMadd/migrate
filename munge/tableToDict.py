@@ -40,7 +40,7 @@ def convertTableToDict(text):
   errorText = ''
   field = ''
   dictList = []
-  tableColumnsLineRegex = r"^ {0,}\| {0,1}-{0,} {0,}\| {0,1}-{0,} {0,}\|"
+  tableColumnsLineRegex = r"^ {0,}\| {0,1}:{0,1}-{0,}:{0,1} {0,}\| {0,1}:{0,1}-{0,}:{0,1} {0,}\|"
   fieldNameIsRegex = r"The field name is (`\w+`)\.{0,1}"
   lines = text.splitlines()
 

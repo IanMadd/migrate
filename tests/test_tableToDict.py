@@ -111,3 +111,22 @@ Some words here. Ignore this. Let's add a pipe for fun. |
 
 def test_findTableInText12():
   assert findTableInText(inputTable8) == ({'end': 356, 'start': 2})
+
+inputTable9='''| Property             | Description                                                                    | Field              |
+| :------------------: | :----------------------------------------------------------------------------: | :----------------- |
+| carrier_gateway_ids  | The ID of the carrier gateway.                                                 | carrier_gateway_id |
+| vpc_ids              | The ID of the VPC (Virtual Private Cloud) associated with the carrier gateway. | vpc_id             |
+| states               | The state of the carrier gateway.                                              | state              |
+| owner_ids            | The Amazon Web Services account ID of the owner of the carrier gateway.        | owner_id           |
+'''
+
+
+outputDict9 =([
+  {'property': 'carrier_gateway_ids', 'description': 'The ID of the carrier gateway.', 'field': '`carrier_gateway_id`'},
+  {'property': 'vpc_ids', 'description': 'The ID of the VPC (Virtual Private Cloud) associated with the carrier gateway.', 'field': '`vpc_id`'},
+  {'property': 'states', 'description': 'The state of the carrier gateway.', 'field': '`state`'},
+  {'property': 'owner_ids', 'description': 'The Amazon Web Services account ID of the owner of the carrier gateway.', 'field': '`owner_id`'}
+  ], '')
+
+def test_convertTableToDict9():
+  assert convertTableToDict(inputTable9) == outputDict9

@@ -29,12 +29,14 @@ def fixFrontmatter(text):
       frontmatter["platform"] = 'azure'
     if 'habitat' in frontmatter['title']:
       frontmatter["platform"] = 'habitat'
+    if 'alicloud' in frontmatter['title']:
+      frontmatter["platform"] = 'alicloud'
 
   if not "title" in frontmatter or not "platform" in frontmatter:
     raise Exception("Missing frontmatter, platform or title: " + str(frontmatter))
 
   #generate frontmatter values
-  title = re.search(titleRegex, frontmatter["title"])
+  title = re.search(titleRegex, frontmatter["title"], re.IGNORECASE)
   print("This is the tile value: " + str(title))
   if title == None:
     errorLogText += "Missing proper title: " + str(frontmatter) + "\n"
