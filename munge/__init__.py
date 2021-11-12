@@ -9,6 +9,7 @@ from . import (
   misc, 
   openClose, 
   output, 
+  permissions,
   properties, 
   readme, 
   repo, 

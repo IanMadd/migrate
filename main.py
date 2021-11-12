@@ -83,7 +83,33 @@ def mungeFile(filePath):
   else:
     fileText = munge.misc.mergeTextCorrectEmptyLines(fileText[:startEnd['start']], propertiesOutput[0], fileText[startEnd['end']:])
 
-  return fileText, fileOutputLog
+  ## AWS Permissions
+
+  if repo == "inspec-aws":
+    permissionsReplace = False
+    startEnd = munge.permissions.openAwsPermissions(fileText)
+    permissionsText = fileText[startEnd['start']: startEnd['end']]
+    permissionsOutput, permissionsReplace = munge.permissions.awsPermissions(permissionsText)
+
+    if permissionsReplace:
+      fileText = fileText[:startEnd['start']] + permissionsOutput + fileText[startEnd['end']:]
+    else:
+      fileOutputLog = munge.output.log("AWS Permissions text not replaced in " + filePath + "\n\n", fileOutputLog)
+      fileOutputLog = munge.output.log(permissionsText + '\n\n', fileOutputLog)
+
+  ## Azure Permissions
+  if repo == "inspec-azure":
+    permissionsReplace = False
+    startEnd = munge.permissions.openAzurePermissions(fileText)
+    permissionsText = fileText[startEnd['start']: startEnd['end']]
+    permissionsOutput, permissionsReplace = munge.permissions.azurePermissions(permissionsText)
+
+    if permissionsReplace:
+      fileText = fileText[:startEnd['start']] + permissionsOutput + fileText[startEnd['end']:]
+    else:
+      fileOutputLog = munge.output.log("Azure Permissions text not replaced in " + filePath + "\n\n", fileOutputLog)
+      fileOutputLog = munge.output.log(permissionsText + '\n\n', fileOutputLog)
+
 
 def run():
   outputLog = ''
