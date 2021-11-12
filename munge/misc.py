@@ -33,20 +33,25 @@ def processCodeBlocks(text):
     findIndentCodeRegex = r"^ {4}[\w|\s]"
     regularLineRegex = r"^[\n|\r|\w|#]"
     backticksRegex = r"^```\s{0,1}\w{0,}"
+    backtickCodeBlock = False
 
     textList = text.splitlines(True)
 
     editingCodeBlock = False
     loopBreak = 0
-    original_text = text
-    # print("Number of lines: " + str(len(textList)))
+
     for index,line in enumerate(textList):
         loopBreak += 1
         if loopBreak >= 1000:
             break
 
-        foundIndentBlock = re.search(findIndentCodeRegex, line)
-        if foundIndentBlock:
+        if re.search(backticksRegex, line) and backtickCodeBlock == True:
+            backtickCodeBlock = False
+
+        if re.search(backticksRegex, line) and backtickCodeBlock == False:
+            backtickCodeBlock = True
+
+        if (foundIndentBlock := re.search(findIndentCodeRegex, line)) is not None and backtickCodeBlock == False:
             if editingCodeBlock == False:
                 numberOfIndentSpaces = str(len(line) - len(line.lstrip(' ')))
                 unindentCodeRegex = r"^ {" + numberOfIndentSpaces + "}"

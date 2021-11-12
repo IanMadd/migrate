@@ -90,3 +90,23 @@ This resource accepts a one of the below mentioned parameters
 
 def test_codeBlocksThree():
   assert processCodeBlocks(codeBlockThree) == codeBlockThreeOutput
+
+codeBlock4 = '''
+some text
+
+```ruby
+  azure_active_directory_objects.values.each do |value|
+    describe azure_active_directory_object(id: value)  do
+      it { should exist }
+      its('visibility') { should_not be_empty }
+    end
+  end
+
+```
+
+more text
+
+'''
+
+def test_codeBlocks4():
+  assert processCodeBlocks(codeBlock4) == codeBlock4
