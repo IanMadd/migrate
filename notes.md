@@ -39,7 +39,7 @@
   All azure resources have a set of common properties. That's a block of text that we could add
   to each page's text similar to: https://docs.chef.io/resources/apt_repository/#functionality
 
-- Read up on Principal, `Effect` `Allow`/`Deny` https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html 
+- Read up on Principal, `Effect` `Allow`/`Deny` https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_effect.html
 
    - Maybe:
@@ -47,57 +47,58 @@
 
 ### **AWS**
 
-1. Fix the frontmatter
-1. Add blank lines after headings
-1. Add blank lines around all codeblocks
-1. Title
-   - delete the title
-1. Add install section like in Azure resource docs.
-1. Syntax
+1. Fix the frontmatter - DONE
+2. Add blank lines after headings
+3. Add blank lines around all codeblocks
+4. Unindent code blocks and add fencing - DONE
+5. Title
+   - delete the title - DONE
+6. Add install section like in Azure resource docs.
+7. Syntax
    1. Parameters
       1. Fix parameter items
-      1. Remove "Parameters" heading and replace with "where:"
-      1. Each parameter becomes a definition list item
-      1. Process parameter required or optional values
-      1. Each parameter section has a link to the AWS docs, for example: "For additional information, see the AWS documentation on ElasticLoadBalancingV2 LoadBalancer". 
-         1. Move this to the top of the page after the intro paragraph.
-         1. Change to "For additional information, including details on parameters and properties, see the [ElasticLoadBalancingV2 LoadBalancer documentation]."
-1. Properties
+      2. Remove "Parameters" heading and replace with "where:" - UNDO THIS ONE. PARAMETERS IS BETTER
+      3. Each parameter becomes a definition list item
+      4. Process parameter required or optional values
+      5. Move "For additional information" link text to intro section of documentation.
+         1. Change to "For additional information, including details on parameters and properties, see the [ElasticLoadBalancingV2 LoadBalancer documentation](link URL)."
+8. Properties
    1. Properties should be in a definition list, not a table
-   1. Plural resources have a Field, which is just the singular key of the property.
+   2. Plural resources have a Field, which is just the singular key of the property.
       1. This may be defined in a third table column called Fields, Field, Field Name, or just included in the text (The field name is `whatever`.).
-      1. Make this a separate line in the parameter definition: **Field**: `whatever`
+      2. Make this a separate line in the parameter definition: **Field**: `whatever`
 
-1. Examples
+9. Examples
    1. Each example is a heading, but should be a bolded sentence.
-1. Matchers
-   1. Each matcher should be a definition list item
-   1. Add Universal Matchers Section
-1. Add AWS Principal Permissions shortcode.
+10. Matchers
+   2. Each matcher should be a definition list item
+   3. Add Universal Matchers Section
+11. Add AWS Principal Permissions shortcode.
 
 
 
 ### **Azure**
 
-1. Fix the frontmatter
-1. Add blank lines after headings
-1. Add blank lines around all codeblocks
-1. Title
-   - delete the title
-1. Azure REST API version, endpoint and http client parameters
-   1. capitalize http in title, and api and http in the paragraph body.
-1. Availability
-   1. Azure has an availability section followed by Installation
-   1. There's never anything in the availability section EXCEPT Installation, so just make this "Installation".
-1. Syntax
+1. Fix the frontmatter - DONE
+2. Add blank lines after headings
+3. Add blank lines around all codeblocks
+4. Convert indented code blocks to fenced code blocks - DONE
+5. Title
+   - delete the title - DONE
+6. Azure REST API version, endpoint and http client parameters
+   1. capitalize http in title, and api and http in the paragraph body. - DONE
+   2. convert text to shortcode. - DONE
+7. Availability
+   1. Azure has an availability section followed by Installation. There's never anything in the availability section EXCEPT Installation, so just make this "Installation". - DONE
+8. Syntax
    1. The parameters in the Syntax section look like a mess and should be edited by hand.
-1. Properties
-   1. It's a table, convert it to a definition list.
-   1. There's a third column, Filter Criteria in plural resources. Add this as part of the definition. **Filter Criteria**: `whatever`.
-1. Examples
-   1. Each example should be bolded text and not a heading
-1. Matchers
-   1. Add Universal Matchers Section
-1. Azure Permissions
-   1. Shortcode for this section cause it's identical everywhere.
-      1. Your [Service Principal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal) must have the `contributor` role for the subscription you wish to test.
+9. Properties - DONE
+   2. It's a table, convert it to a definition list.
+   3. There's a third column, Filter Criteria in plural resources. Add this as part of the definition. **Filter Criteria**: `whatever`.
+10. Examples
+    1. Each example should be bolded text and not a heading
+11. Matchers
+    1. Add Universal Matchers Section
+12. Azure Permissions
+    1. Shortcode for this section cause it's identical almost everywhere. - DONE
+
