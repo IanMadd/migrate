@@ -68,6 +68,12 @@ def mungeFile(filePath):
         fileOutputLog = munge.output.log('Missing examples heading -----> ' + page , fileOutputLog)
 
     ## Parameters
+    replacedParametersHeadingText, replacedParametersHeading = munge.parameters.fixParametersHeading(fileText)
+    if replacedParametersHeading:
+        fileText = replacedParametersHeadingText
+    else:
+        fileOutputLog = munge.output.log("Didn't find Parameters heading-----> " + page , fileOutputLog)
+
     if "inspec-aws" in repo:
         outputText, movedLink = munge.parameters.moveAWSLink(fileText)
         if movedLink:

@@ -3,7 +3,6 @@ import re
 
 def mungeSyntaxBlock(text, start, end):
   syntaxText = text[start:end]
-  regexParameters = r"^#+ Parameters"
   notHeadingNotNewline = r"^[^#|\n]"
   newLine = r"^\n"
 
@@ -53,14 +52,7 @@ def mungeSyntaxBlock(text, start, end):
           if not re.search(seeAlsoTheLineRegex, line):
             textList[index] = re.sub(regexNormalLine, substWrapLine, line, 1, re.M)
 
-    if re.search(regexParameters, line):
-      # print("found parameters:")
-      foundParameters = True
-
   syntaxText = "".join(textList)
-
-  substParameters = "where:"
-  syntaxText = re.sub(regexParameters, substParameters, syntaxText, 0, re.M)
 
   text = text[:start] + syntaxText + text[end:]
   return text

@@ -1,6 +1,14 @@
 import re
 from . import misc
 
+def fixParametersHeading(pageText):
+    replacedParametersHeading = False
+    regexParameters = r"^###+ Parameters {0,}$"
+    if re.search(regexParameters, pageText, re.M):
+        pageText = re.sub(regexParameters, "## Parameters", pageText, 1, re.M)
+        replacedParametersHeading = True
+
+    return pageText, replacedParametersHeading
 
 def moveAWSLink(pageText):
     movedLink = False

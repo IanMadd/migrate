@@ -197,3 +197,60 @@ Id consectetur irure quis nisi [AWS documentation on Elastic Load Balancing](htt
 
 def testAwsMoveLink3():
     assert moveAWSLink(inputText3) == (inputText3, False)
+
+inputText6 = '''
+## Syntax
+
+An `aws_iam_access_keys` resource block returns all IAM Access Keys and allows the testing of that group of Access Keys.
+
+      describe aws_iam_access_keys do
+        it                    { should exist }
+        its('access_key_ids') { should include 'AKIA1111111111111111' }
+      end
+
+#### Parameters
+
+This resources accepts a single optional parameter, a Username for which to retrieve all Access Keys.
+If not provided, all Access Keys for all Users will be retrieved.
+
+##### username _(optional)_
+
+The IAM Username for which to retrieve the Access Keys.
+This can be passed either as a string or as a `username: 'value'` key-value entry in a hash.
+
+See also the [AWS documentation on IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
+
+## Properties
+
+| Property               | Description|
+'''
+
+outputText6 = '''
+## Syntax
+
+An `aws_iam_access_keys` resource block returns all IAM Access Keys and allows the testing of that group of Access Keys.
+
+      describe aws_iam_access_keys do
+        it                    { should exist }
+        its('access_key_ids') { should include 'AKIA1111111111111111' }
+      end
+
+## Parameters
+
+This resources accepts a single optional parameter, a Username for which to retrieve all Access Keys.
+If not provided, all Access Keys for all Users will be retrieved.
+
+##### username _(optional)_
+
+The IAM Username for which to retrieve the Access Keys.
+This can be passed either as a string or as a `username: 'value'` key-value entry in a hash.
+
+See also the [AWS documentation on IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
+
+## Properties
+
+| Property               | Description|
+'''
+
+def testFixParametersHeading6():
+    assert fixParametersHeading(inputText6) == (outputText6, True)
