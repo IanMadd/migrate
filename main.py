@@ -78,6 +78,9 @@ def mungeFile(filePath):
         outputText, movedLink = munge.parameters.moveAWSLink(fileText)
         if movedLink:
             fileText = outputText
+        else:
+            outputLogText = "Did NOT move link to AWS API documentation in " + str(page)
+            fileOutputLog = munge.output.log(outputLogText, fileOutputLog)
 
     ### Azure Parameters
     fileText = munge.azureParameters.azureCommonParameters(fileText)

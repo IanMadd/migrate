@@ -24,7 +24,8 @@ def moveAWSLink(pageText):
     forAdditionalRegex = r"For additional information, see the "
     seeAlsoRegex = r"See also the "
     substAwsLinkText = "For additional information, including details on parameters and properties, see the "
-    linkRegex = r"(\[[\w| ]+\]\([\w|:|\/|\.|\-]+\))"
+    linkRegex = r"(\[[\w| |\.|`|:|\(|\)]+\]\([\w|:|\/|\.|\-]+\))"
+    seeTheRegex = r"See the (\[[\w| |\.|`|:|\(|\)]+\]\([\w|:|\/|\.|\-]+\)) for additional information."
     blankLineRegex = r"$ {0,}^"
     firstH2Regex = r"^## [\w| ]+\n"
 
@@ -44,6 +45,10 @@ def moveAWSLink(pageText):
             awsLinkTextStart = seeAlso.start()
             foundLinkText = True
 
+        elif (seeTheMatch := re.search(seeTheRegex, parametersText, re.M)) is not None:
+            foundLinkText = True
+            awsLinkTextStart = seeTheMatch.start()
+
         if foundLinkText:
             # print("awsLinkTextStart starts here--->")
             # print(parametersText[awsLinkTextStart:])
@@ -54,7 +59,17 @@ def moveAWSLink(pageText):
             awsLinkText = parametersText[awsLinkTextStart: nextBlankLineStart]
             awsLinkText = re.sub(forAdditionalRegex, substAwsLinkText, awsLinkText, 1)
             awsLinkText = re.sub(seeAlsoRegex, substAwsLinkText, awsLinkText, 1)
+            if (seeTheMatch := re.search(seeTheRegex, parametersText, re.M)) is not None:
+                linkText = seeTheMatch.group(1)
+                linkText = substAwsLinkText + linkText + '.'
+                awsLinkText = re.sub(seeTheRegex, linkText, parametersText, 1, re.M)
+
             parametersText = parametersText[:awsLinkTextStart].rstrip() + '\n\n' + parametersText[nextBlankLineStart:].lstrip()
+
+            print("starts here -->>" + parametersText.strip()  + "<< -- end here")
+            if parametersText.strip() == "":
+                print('empty')
+                parametersText = "The resource does not require any parameters."
             pageText = pageText[:parametersTextStart].rstrip() + "\n\n" + parametersText.strip() + "\n\n" + pageText[nextH2Start:].lstrip()
 
             firstH2 = re.search(firstH2Regex, pageText, re.M)

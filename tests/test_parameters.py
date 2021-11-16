@@ -198,6 +198,122 @@ Id consectetur irure quis nisi [AWS documentation on Elastic Load Balancing](htt
 def testAwsMoveLink3():
     assert moveAWSLink(inputText3) == (inputText3, False)
 
+inputText4 = '''
+# aws_apigateway_account
+
+Use the `aws_apigateway_account` InSpec audit resource to test properties of a single specific AWS API Gateway account.
+
+The `AWS::ApiGateway::Account` resource specifies the IAM role that Amazon API Gateway uses to write API logs to Amazon CloudWatch Logs.
+
+## Syntax
+
+Ensure that the account exists.
+
+    describe aws_apigateway_account do
+      it { should exist }
+    end
+
+## Parameters
+
+For additional information, see the [AWS documentation on AWS API Gateway accounts.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-account.html).
+
+## Properties
+
+| Property | Description |
+| --- | --- |
+'''
+
+outputText4 = '''
+# aws_apigateway_account
+
+Use the `aws_apigateway_account` InSpec audit resource to test properties of a single specific AWS API Gateway account.
+
+The `AWS::ApiGateway::Account` resource specifies the IAM role that Amazon API Gateway uses to write API logs to Amazon CloudWatch Logs.
+
+For additional information, including details on parameters and properties, see the [AWS documentation on AWS API Gateway accounts.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-account.html).
+
+## Syntax
+
+Ensure that the account exists.
+
+    describe aws_apigateway_account do
+      it { should exist }
+    end
+
+## Parameters
+
+The resource does not require any parameters.
+
+## Properties
+
+| Property | Description |
+| --- | --- |
+'''
+
+def testAwsMoveLink4():
+    assert moveAWSLink(inputText4) == (outputText4, True)
+
+inputText5 = '''
+
+# aws_cloudfront_cache_policies
+
+Use the `aws_cloudfront_cache_policies` InSpec audit resource to test properties of multiple AWS CloudFront cache policies.
+
+The `AWS::CloudFront::CachePolicy` resource describes the CloudFront cache policy.
+
+## Syntax
+
+Ensure that the custom resource exists.
+
+    describe aws_cloudfront_cache_policies do
+      it { should exist }
+    end
+
+## Parameters
+
+This resource does not require any parameters.
+
+For additional information, see the [AWS documentation on AWS CloudFront cache policy.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-cache-policy.html).
+
+## Properties
+
+| Property | Description | Field |
+| --- | --- | --- |
+'''
+
+outputText5 = '''
+
+# aws_cloudfront_cache_policies
+
+Use the `aws_cloudfront_cache_policies` InSpec audit resource to test properties of multiple AWS CloudFront cache policies.
+
+The `AWS::CloudFront::CachePolicy` resource describes the CloudFront cache policy.
+
+For additional information, including details on parameters and properties, see the [AWS documentation on AWS CloudFront cache policy.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-cache-policy.html).
+
+## Syntax
+
+Ensure that the custom resource exists.
+
+    describe aws_cloudfront_cache_policies do
+      it { should exist }
+    end
+
+## Parameters
+
+This resource does not require any parameters.
+
+## Properties
+
+| Property | Description | Field |
+| --- | --- | --- |
+'''
+
+
+def testAwsMoveLink5():
+    assert moveAWSLink(inputText5) == (outputText5, True)
+
+
 inputText6 = '''
 ## Syntax
 
