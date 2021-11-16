@@ -28,7 +28,7 @@ def mungeProperties(text, start, end):
         definitions = dictToDefinition.convertDictToDef(dictionaryOutput[0])
         definitionsStartEnd = propertiesTableStartEnd
         propertiesText = propertiesText[:definitionsStartEnd['start']] + definitions + propertiesText[definitionsStartEnd['end']:]
-        print("Definitions in mungeProperties: " + definitions)
+        # print("Definitions in mungeProperties: " + definitions)
       else:
         errorText += dictionaryOutput[1]
     else:

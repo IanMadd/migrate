@@ -70,8 +70,6 @@ def convertTableToDict(text):
   if errorText == '':
 
     for line in lines[2:]:
-      print(line)
-      print(line + 'end of line')
 
       lineCount = line.count('|')
       if lineCount > len(keys) + 1:
@@ -89,12 +87,9 @@ def convertTableToDict(text):
         for index, item in enumerate(lineList):
           lineItem = item.strip()
           if lineItem == '':
-            print("What's going on?")
             lineItem = "Not Applicable"
 
           lineList[index] = lineItem
-
-        print("Printing processed Linelist: " + str(lineList))
 
         dict = {}
         for index,key in enumerate(keys):
