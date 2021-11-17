@@ -1,4 +1,4 @@
-import os, munge
+import os, munge, re
 from pathlib import Path
 
 repoList = ['../inspec-aws', '../inspec-azure']
@@ -101,27 +101,36 @@ def mungeFile(filePath):
     if repo == "inspec-aws":
         permissionsReplace = False
         startEnd = munge.permissions.openAwsPermissions(fileText)
-        permissionsText = fileText[startEnd['start']: startEnd['end']]
-        permissionsOutput, permissionsReplace = munge.permissions.awsPermissions(permissionsText)
+        if startEnd['start'] is not None and startEnd['end'] is not None:
+            permissionsText = fileText[startEnd['start']: startEnd['end']]
+            permissionsOutput, permissionsReplace = munge.permissions.awsPermissions(permissionsText)
 
-        if permissionsReplace:
-            fileText = fileText[:startEnd['start']] + permissionsOutput + fileText[startEnd['end']:]
+            if permissionsReplace:
+                fileText = fileText[:startEnd['start']] + permissionsOutput + fileText[startEnd['end']:]
+            else:
+                fileOutputLog = munge.output.log("AWS Permissions text not replaced in " + str(filePath) + "\n\n", fileOutputLog)
+                fileOutputLog = munge.output.log(permissionsText + '\n\n', fileOutputLog)
         else:
-            fileOutputLog = munge.output.log("AWS Permissions text not replaced in " + str(filePath) + "\n\n", fileOutputLog)
-            fileOutputLog = munge.output.log(permissionsText + '\n\n', fileOutputLog)
+            fileOutputLog = munge.output.log("AWS Permissions text not replaced in " + str(filePath) + ". AWS Permissions heading not found.", fileOutputLog)
+            fileOutputLog = munge.output.log("AWS Permissions StartEnd " + str(startEnd) + "\n\n", fileOutputLog)
+            fileOutputLog = munge.output.log("FileText --->" + fileText + "<-- End FileText\n\n", fileOutputLog)
 
     ## Azure Permissions
     if repo == "inspec-azure":
         permissionsReplace = False
         startEnd = munge.permissions.openAzurePermissions(fileText)
-        permissionsText = fileText[startEnd['start']: startEnd['end']]
-        permissionsOutput, permissionsReplace = munge.permissions.azurePermissions(permissionsText)
+        if startEnd['start'] is not None and startEnd['end'] is not None:
+            permissionsText = fileText[startEnd['start']: startEnd['end']]
+            permissionsOutput, permissionsReplace = munge.permissions.azurePermissions(permissionsText)
 
-        if permissionsReplace:
-            fileText = fileText[:startEnd['start']] + permissionsOutput + fileText[startEnd['end']:]
+            if permissionsReplace:
+                fileText = fileText[:startEnd['start']] + permissionsOutput + fileText[startEnd['end']:]
+            else:
+                fileOutputLog = munge.output.log("Azure Permissions text not replaced in " + str(filePath) + "\n\n", fileOutputLog)
+                fileOutputLog = munge.output.log(permissionsText + '\n\n', fileOutputLog)
         else:
-            fileOutputLog = munge.output.log("Azure Permissions text not replaced in " + str(filePath) + "\n\n", fileOutputLog)
-            fileOutputLog = munge.output.log(permissionsText + '\n\n', fileOutputLog)
+            fileOutputLog = munge.output.log("Azure Permissions text not replaced in " + str(filePath) + ". Azure Permissions heading not found.\n", fileOutputLog)
+            fileOutputLog = munge.output.log("Azure Permission StartEnd: " + str(startEnd) + "\n\n", fileOutputLog)
 
     return fileText, fileOutputLog
 
