@@ -4,6 +4,7 @@ from . import (
   azureParameters, 
   examples, 
   frontmatter, 
+  headings, 
   makeFiles, 
   matchers, 
   misc, 

@@ -77,7 +77,6 @@ def processCodeBlocks(text):
     # print(output)
     return output
 
-
 def removeEmptySpaces(text):
     regex = r"^ +\n"
     subst = "\n"

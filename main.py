@@ -36,6 +36,12 @@ def mungeFile(filePath):
     else:
         fileText = removeHeadingTitleText[0]
 
+    ## Fix headings
+    fileText = munge.headings.spacesAroundHeadings(fileText)
+    fileText, errorText = munge.headings.correctHeadingOrder(fileText)
+    if errorText != '':
+        fileOutputLog = munge.output.log("Incorrect Heading levels " + page, fileOutputLog)
+
     ## Miscellaneous
     fileText = munge.misc.removeSlash(fileText)
     fileText = munge.misc.removeEmptySpaces(fileText)

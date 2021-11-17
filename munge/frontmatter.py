@@ -37,7 +37,6 @@ def fixFrontmatter(text):
 
   #generate frontmatter values
   title = re.search(titleRegex, frontmatter["title"], re.IGNORECASE)
-  print("This is the tile value: " + str(title))
   if title == None:
     errorLogText += "Missing proper title: " + str(frontmatter) + "\n"
 
