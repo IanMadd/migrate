@@ -45,11 +45,18 @@ def processCodeBlocks(text):
         if loopBreak >= 1000:
             break
 
+        ## If a line has a fenced codeblock markers, ie "```", and the script has already matched a fenced codeblock,
+        ## then set backtickCodeBlock to False.
+        ## That is to say the script has already started processing a fenced codeblock on a previous line and has found the end
+        ## of the fenced codeblock.
         if re.search(backticksRegex, line) and backtickCodeBlock == True:
             backtickCodeBlock = False
 
+        ## If it finds backticks code fencing and it hasn't found backtick code fencing on a previous line
+        ## set backtickCodeBlock to True to the codeblock isn't processed in the next step.
         if re.search(backticksRegex, line) and backtickCodeBlock == False:
             backtickCodeBlock = True
+
 
         if (foundIndentBlock := re.search(findIndentCodeRegex, line)) is not None and backtickCodeBlock == False:
             if editingCodeBlock == False:
@@ -63,7 +70,7 @@ def processCodeBlocks(text):
         elif not foundIndentBlock and editingCodeBlock == True:
             if re.search(regularLineRegex, line):
                 # print(line)
-                textList[index] = "```\n\n"
+                textList[index] = "```\n" + textList[index]
                 editingCodeBlock = False
 
     output = "".join(textList)
