@@ -30,7 +30,7 @@ def correctHeadingOrder(text):
     errorText = ''
     codeBlock = False
     fencedCodeBlockRegex = r"^```{1,} {0,}[\w| ]{0,}$"
-    h2HeadingList = ["Properties", "Parameters", "Syntax", "Examples", "Matchers", "AWS Permissions", "Azure Permissions"]
+    h2HeadingList = ["Properties", "Parameters", "Syntax", "Requirements", "Examples", "Matchers", "AWS Permissions", "Azure Permissions"]
 
     textList = text.splitlines(True)
 
