@@ -34,7 +34,7 @@ Ensure that an `aws_alb` exists
       it { should exist }
     end
     
-where:
+#### Parameters
 
 `load_balancer_arn` | `REQUIRED`
 
@@ -117,7 +117,7 @@ syntaxBlock2Output = '''## Syntax
       it { should exist }
     end
 
-where:
+#### Parameters
 
 You must provide at least one parameter; `group_id`, `group_name` or `vpc_id`
 
