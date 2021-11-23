@@ -1,7 +1,8 @@
 import os, munge, re
 from pathlib import Path
 
-repoList = ['../inspec-aws', '../inspec-azure']
+# repoList = ['../inspec-aws', '../inspec-azure']
+repoList = ['../forks/inspec-aws', '../forks/inspec-azure']
 
 inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/content/inspec/resources"
@@ -49,11 +50,11 @@ def mungeFile(filePath):
     fileText = munge.misc.formatLinks(fileText, repo)
 
     ## Syntax
-    syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
-    if syntaxBlock['start'] and syntaxBlock['end']:
-        fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
-    else:
-        fileOutputLog = munge.output.log('Missing Syntax heading -----> ' + page , fileOutputLog)
+    # syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
+    # if syntaxBlock['start'] and syntaxBlock['end']:
+    #     fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
+    # else:
+    #     fileOutputLog = munge.output.log('Missing Syntax heading -----> ' + page , fileOutputLog)
 
     ## Installation
     if "inspec-aws" in repo:
