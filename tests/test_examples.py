@@ -1,6 +1,6 @@
 import pytest
-from migrate.munge.examples import openExamples, mungeExamples
-from migrate.munge.misc import processCodeBlocks, removeEmptySpaces, removeSlash
+from migrate.munge.examples import *
+from migrate.munge.misc import processCodeBlocks, removeEmptySpaces, removeSlash, openBlock
 
 inputString = """## Properties
 
@@ -96,7 +96,7 @@ def testExamples():
   output = removeEmptySpaces(inputString)
   output = processCodeBlocks(output)
   output = removeSlash(output)
-  startEnd = openExamples(output)
+  startEnd = openBlock(output, "Examples")
   output = mungeExamples(output, startEnd["start"], startEnd["end"])
   assert output == outputString
 
@@ -168,7 +168,7 @@ def testExamples2():
   output = removeEmptySpaces(inputString2)
   output = processCodeBlocks(output)
   output = removeSlash(output)
-  startEnd = openExamples(output)
+  startEnd = openBlock(output, "Examples")
   output = mungeExamples(output, startEnd["start"], startEnd["end"])
   assert output == outputString2
 
@@ -278,6 +278,6 @@ def testExamples3():
   output = removeEmptySpaces(inputString3)
   output = removeSlash(output)
   output = processCodeBlocks(output)
-  startEnd = openExamples(output)
+  startEnd = openBlock(output, "Examples")
   output = mungeExamples(output, startEnd["start"], startEnd["end"])
   assert output == outputString3

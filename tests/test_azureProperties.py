@@ -1,6 +1,6 @@
 import pytest
 from migrate.munge.properties import *
-from migrate.munge.misc import mergeTextCorrectEmptyLines
+from migrate.munge.misc import mergeTextCorrectEmptyLines, openBlock
 
 inputText1 = '''
 ## Parameters
@@ -112,7 +112,7 @@ end
 '''
 
 def testProperties1():
-  startEnd = openProperties(inputText1)
+  startEnd = openBlock(inputText1, "Properties")
   output = mungeProperties(inputText1, startEnd['start'], startEnd['end'])
   definitionsText = mergeTextCorrectEmptyLines(inputText1[:startEnd['start']], output[0], inputText1[startEnd['end']:])
   assert definitionsText == outputText1
@@ -188,7 +188,7 @@ end
 '''
 
 def testProperties2():
-  startEnd = openProperties(inputText2)
+  startEnd = openBlock(inputText2, "Properties")
   output = mungeProperties(inputText2, startEnd['start'], startEnd['end'])
   definitionsText = mergeTextCorrectEmptyLines(inputText2[:startEnd['start']], output[0], inputText2[startEnd['end']:])
   assert definitionsText == outputText2
@@ -238,7 +238,7 @@ outputText3 = '''Both the parameter sets needs be provided for a valid query:
 '''
 
 def testProperties3():
-  startEnd = openProperties(inputText3)
+  startEnd = openBlock(inputText3, "Properties")
   output = mungeProperties(inputText3, startEnd['start'], startEnd['end'])
   print('Output: ' + output[0])
   print('Output: ' + '\n\n' + output[1])

@@ -122,3 +122,15 @@ def returnPageAndRepo(fullPageFilePath):
             break
 
     return page, repo
+
+def openBlock(text, heading):
+    headingMatch = thisH2Match(text, heading)
+    if headingMatch:
+        blockStart = headingMatch.end(0)
+        nextH2Dict = findNextH2(text, blockStart)
+        blockEnd = nextH2Dict["matchStart"]
+    else:
+        blockStart = None
+        blockEnd = None
+
+    return {"start": blockStart, "end":blockEnd}

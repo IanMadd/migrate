@@ -1,5 +1,6 @@
 import pytest
-from migrate.munge.permissions import openAwsPermissions, openAzurePermissions, awsPermissions, azurePermissions
+from migrate.munge.permissions import awsPermissions, azurePermissions
+from migrate.munge.misc import openBlock
 
 awsStringInput1 = '''
 Use `should` to check if the entity is available.
@@ -27,7 +28,7 @@ Use `should` to check if the entity is available.
 
 def testAwsPermissions1():
     permissionsReplace = False
-    startEnd = openAwsPermissions(awsStringInput1)
+    startEnd = openBlock(awsStringInput1, "AWS Permissions")
     permissionsText = awsStringInput1[startEnd['start']: startEnd['end']]
     permissionsOutput, permissionsReplace = awsPermissions(permissionsText)
     awsStringResult1 = awsStringInput1[:startEnd['start']] + permissionsOutput + awsStringInput1[startEnd['end']:]
@@ -60,7 +61,7 @@ end
 
 def testAzurePermissions1():
     permissionsReplace = False
-    startEnd = openAzurePermissions(azureStringInput1)
+    startEnd = openBlock(azureStringInput1, "Azure Permissions")
     permissionsText = azureStringInput1[startEnd['start']: startEnd['end']]
     permissionsOutput, permissionsReplace = azurePermissions(permissionsText)
     azureStringResult1 = azureStringInput1[:startEnd['start']] + permissionsOutput + azureStringInput1[startEnd['end']:]

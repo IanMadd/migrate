@@ -3,19 +3,6 @@ from . import misc
 from . import tableToDict
 from . import dictToDefinition
 
-def openProperties(text):
-  blockHeadingText = "Properties"
-  propertiesHeadingMatch = misc.thisH2Match(text, blockHeadingText)
-  if propertiesHeadingMatch:
-    propertiesBlockStart = propertiesHeadingMatch.end(0)
-    nextH2Dict = misc.findNextH2(text, propertiesBlockStart)
-    propertiesBlockEnd = nextH2Dict["matchStart"]
-  else:
-    propertiesBlockStart = None
-    propertiesBlockEnd = None
-
-  return {'start': propertiesBlockStart, 'end': propertiesBlockEnd}
-
 def mungeProperties(text, start, end):
   errorText = ''
   propertiesText = text[start: end]

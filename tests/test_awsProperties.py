@@ -1,6 +1,6 @@
 import pytest
 from migrate.munge.properties import *
-from migrate.munge.misc import mergeTextCorrectEmptyLines
+from migrate.munge.misc import mergeTextCorrectEmptyLines, openBlock
 
 inputText1 = '''
 See also the [AWS documentation on Elastic Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference).
@@ -52,7 +52,7 @@ See also the [AWS documentation on Elastic Load Balancing](https://docs.aws.amaz
 '''
 
 def testProperties1():
-  startEnd = openProperties(inputText1)
+  startEnd = openBlock(inputText1, "Properties")
   output = mungeProperties(inputText1, startEnd['start'], startEnd['end'])
   # print(inputText1[startEnd['start']:startEnd['end']])
   definitionsText = mergeTextCorrectEmptyLines(inputText1[:startEnd['start']], output[0], inputText1[startEnd['end']:])
@@ -102,7 +102,7 @@ More text
 '''
 
 def testProperties2():
-  startEnd = openProperties(inputText2)
+  startEnd = openBlock(inputText2, "Properties")
   output = mungeProperties(inputText2, startEnd['start'], startEnd['end'])
   definitionsText = mergeTextCorrectEmptyLines(inputText2[:startEnd['start']], output[0], inputText2[startEnd['end']:])
   assert definitionsText == outputText2
@@ -155,7 +155,7 @@ For a comprehensive list of properties available to test on an RDS cluster see t
 '''
 
 def testProperties3():
-  startEnd = openProperties(inputText3)
+  startEnd = openBlock(inputText3, "Properties")
   output = mungeProperties(inputText3, startEnd['start'], startEnd['end'])
   definitionsText = mergeTextCorrectEmptyLines(inputText3[:startEnd['start']], output[0], inputText3[startEnd['end']:])
   assert definitionsText == outputText3

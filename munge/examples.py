@@ -1,19 +1,6 @@
 from . import misc
 import re
 
-def openExamples(text):
-  blockHeadingText = "Examples"
-  examplesHeadingMatch = misc.thisH2Match(text, blockHeadingText)
-  if examplesHeadingMatch:
-    examplesBlockStart = examplesHeadingMatch.end(0)
-    nextH2Dict = misc.findNextH2(text, examplesBlockStart)
-    examplesBlockEnd = nextH2Dict["matchStart"]
-  else:
-    examplesBlockStart = None
-    examplesBlockEnd = None
-
-  return {"start": examplesBlockStart, "end": examplesBlockEnd}
-
 def mungeExamples(text, start, end):
   examplesText = text[start:end]
   exampleHeadingRegex = r"#+ ([\S| ]+)"

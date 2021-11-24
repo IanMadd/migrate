@@ -50,7 +50,7 @@ def mungeFile(filePath):
     fileText = munge.misc.formatLinks(fileText, repo)
 
     ## Syntax
-    # syntaxBlock = munge.syntax.openSyntaxBlock(fileText)
+    # syntaxBlock = munge.misc.openBlock(fileText, "Syntax")
     # if syntaxBlock['start'] and syntaxBlock['end']:
     #     fileText = munge.syntax.mungeSyntaxBlock(fileText, syntaxBlock['start'], syntaxBlock['end'])
     # else:
@@ -68,14 +68,13 @@ def mungeFile(filePath):
         fileText = munge.azureParameters.azureCommonParameters(fileText)
 
     ## Examples
-    examplesBlock = munge.examples.openExamples(fileText)
+    examplesBlock = munge.misc.openBlock(fileText, "Examples")
     if examplesBlock['start']:
         fileText = munge.examples.mungeExamples(fileText, examplesBlock['start'], examplesBlock['end'])
     else:
         fileOutputLog = munge.output.log('Missing examples heading -----> ' + page , fileOutputLog)
 
     ## Parameters
-
     if "inspec-aws" in repo:
         outputText, movedLink = munge.parameters.moveAWSLink(fileText)
         if movedLink:
@@ -84,14 +83,15 @@ def mungeFile(filePath):
             outputLogText = "Did NOT move link to AWS API documentation in " + str(page)
             fileOutputLog = munge.output.log(outputLogText, fileOutputLog)
 
+
     ### Azure Parameters
-    fileText = munge.azureParameters.azureCommonParameters(fileText)
+    fileText = munge.parameters.azureCommonParameters(fileText)
 
     ### AWS Parameters
 
 
     ## Properties
-    startEnd = munge.properties.openProperties(fileText)
+    startEnd = munge.misc.openBlock(fileText, "Properties")
     propertiesOutput = munge.properties.mungeProperties(fileText, startEnd['start'], startEnd['end'])
     if propertiesOutput[1] != '':
         fileOutputLog = munge.output.log('Properties Table Problem -----> ' + page + '\n\n' + propertiesOutput[1], fileOutputLog)
@@ -102,7 +102,7 @@ def mungeFile(filePath):
 
     if repo == "inspec-aws":
         permissionsReplace = False
-        startEnd = munge.permissions.openAwsPermissions(fileText)
+        startEnd = munge.misc.openBlock(fileText, "AWS Permissions")
         if startEnd['start'] is not None and startEnd['end'] is not None:
             permissionsText = fileText[startEnd['start']: startEnd['end']]
             permissionsOutput, permissionsReplace = munge.permissions.awsPermissions(permissionsText)
@@ -120,7 +120,7 @@ def mungeFile(filePath):
     ## Azure Permissions
     if repo == "inspec-azure":
         permissionsReplace = False
-        startEnd = munge.permissions.openAzurePermissions(fileText)
+        startEnd = munge.misc.openBlock(fileText, "Azure Permissions")
         if startEnd['start'] is not None and startEnd['end'] is not None:
             permissionsText = fileText[startEnd['start']: startEnd['end']]
             permissionsOutput, permissionsReplace = munge.permissions.azurePermissions(permissionsText)
