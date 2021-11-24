@@ -314,59 +314,40 @@ def testAwsMoveLink5():
     assert moveAWSLink(inputText5) == (outputText5, True)
 
 
+
 inputText6 = '''
-## Syntax
+# azure_container_registries
 
-An `aws_iam_access_keys` resource block returns all IAM Access Keys and allows the testing of that group of Access Keys.
+Use the `azure_container_registries` InSpec audit resource to test properties and configuration of Azure Container Registries.
 
-      describe aws_iam_access_keys do
-        it                    { should exist }
-        its('access_key_ids') { should include 'AKIA1111111111111111' }
-      end
+## Azure REST API version, endpoint and HTTP client parameters
 
-#### Parameters
+This resource interacts with API versions supported by the resource provider.
+The `api_version` can be defined as a resource parameter.
+If not provided, the latest version will be used.
+For more information, refer to [`azure_generic_resource`](azure_generic_resource.md).
 
-This resources accepts a single optional parameter, a Username for which to retrieve all Access Keys.
-If not provided, all Access Keys for all Users will be retrieved.
+Unless defined, this resource will use the `azure_cloud` global endpoint and default values for the HTTP client.
+For more information, refer to the resource pack [README](../../README.md).
 
-##### username _(optional)_
+## Availability
 
-The IAM Username for which to retrieve the Access Keys.
-This can be passed either as a string or as a `username: 'value'` key-value entry in a hash.
-
-See also the [AWS documentation on IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
-
-## Properties
-
-| Property               | Description|
+### Installation
 '''
 
 outputText6 = '''
-## Syntax
+# azure_container_registries
 
-An `aws_iam_access_keys` resource block returns all IAM Access Keys and allows the testing of that group of Access Keys.
+Use the `azure_container_registries` InSpec audit resource to test properties and configuration of Azure Container Registries.
 
-      describe aws_iam_access_keys do
-        it                    { should exist }
-        its('access_key_ids') { should include 'AKIA1111111111111111' }
-      end
+## Azure REST API Version, Endpoint, and HTTP Client Parameters
 
-## Parameters
+{{% inspec_azure_common_parameters %}}
 
-This resources accepts a single optional parameter, a Username for which to retrieve all Access Keys.
-If not provided, all Access Keys for all Users will be retrieved.
+## Availability
 
-##### username _(optional)_
-
-The IAM Username for which to retrieve the Access Keys.
-This can be passed either as a string or as a `username: 'value'` key-value entry in a hash.
-
-See also the [AWS documentation on IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
-
-## Properties
-
-| Property               | Description|
+### Installation
 '''
 
-def testFixParametersHeading6():
-    assert fixParametersHeading(inputText6) == (outputText6, True)
+def testAzureParameters():
+  assert azureCommonParameters(inputText6) == outputText6
