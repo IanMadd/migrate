@@ -10,7 +10,7 @@ def pullRepo(file_path):
     if "forks" in file_path:
         repo.remotes.upstream.fetch('main')
         if repo.git.diff('upstream/main', 'main') != '':
-            repo.merge('upstream/main')
+            repo.git.merge('upstream/main')
             repo.remotes.origin.push('main')
 
     else:
