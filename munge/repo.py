@@ -20,6 +20,6 @@ def pullRepo(file_path):
 def newBranch(file_path, branch):
     repo = git.Repo(file_path)
     if branch in repo.branches:
-        repo.delete_head(branch)
+        repo.delete_head(branch, force=True)
     repo.git.branch(branch)
     repo.git.checkout(branch)
