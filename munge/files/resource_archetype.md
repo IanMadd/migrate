@@ -16,6 +16,8 @@ platform = "<PLATFORM>"
 
 ## Syntax
 
+## Parameters
+
 ## Properties
 
 ## Examples

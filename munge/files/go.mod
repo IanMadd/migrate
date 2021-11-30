@@ -1,3 +1,3 @@
-module github.com/inspec/inspec-<PLATFORM>/docs-chef-io
+module github.com/<ORG>/inspec-<PLATFORM>/docs-chef-io
 
-go 1.14
+go 1.17
