@@ -92,9 +92,9 @@ def formatLinks(text, repo):
     ## Handle links to README pages in repo
     readmeLinkRegex = r'\[README\]\(\.\./\.\./README\.md'
     if "inspec-azure" in repo:
-        readmeSubstLink = '[README](https://github.com/inspec/inspec-azure/blob/master/README.md'
+        readmeSubstLink = '[README](https://github.com/inspec/inspec-azure/blob/main/README.md'
     elif "inspec-aws" in repo:
-        readmeSubstLink = '[README](https://github.com/inspec/inspec-aws/blob/master/README.md'
+        readmeSubstLink = '[README](https://github.com/inspec/inspec-aws/blob/main/README.md'
 
     text = re.sub(readmeLinkRegex, readmeSubstLink, text, 0, re.M)
 

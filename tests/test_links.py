@@ -44,7 +44,7 @@ For more information, refer to the resource pack [README](../../README.md).
 outputLinkText3 = """For more information, refer to [`azure_generic_resource`]({{< relref "azure_generic_resource.md" >}}).
 
 Unless defined, `azure_cloud` global endpoint, and default values for the http client will be used.
-For more information, refer to the resource pack [README](https://github.com/inspec/inspec-azure/blob/master/README.md). 
+For more information, refer to the resource pack [README](https://github.com/inspec/inspec-azure/blob/main/README.md). 
 
 ## Availability
 """
@@ -60,7 +60,7 @@ For an example `inspec.yml` file and how to set up your Azure credentials, refer
 outputLinkText4 = '''### Installation
 
 This resource is available in the [InSpec Azure resource pack](https://github.com/inspec/inspec-azure). 
-For an example `inspec.yml` file and how to set up your Azure credentials, refer to resource pack [README](https://github.com/inspec/inspec-azure/blob/master/README.md#Service-Principal).
+For an example `inspec.yml` file and how to set up your Azure credentials, refer to resource pack [README](https://github.com/inspec/inspec-azure/blob/main/README.md#Service-Principal).
 
 ## Syntax
 '''
