@@ -1,9 +1,10 @@
 import pytest
 from migrate.munge.parameters import *
+from migrate.munge.misc import openBlock
 
 inputText1= '''
 
-# aws\_cloudfront\_distribution
+# aws_cloudfront_distribution
 
 Use the `aws_cloudfront_distribution` InSpec audit resource to test the properties of a single AWS CloudFront distribution.
 
@@ -21,11 +22,11 @@ Ensure that an `aws_cloudfront_distribution` exists:
 
 ## Parameters
 
-### distribution\_id _(required)_
+### distribution_id _(required)_
 
 The CloudFront distribution ID, which can be passed either as a string or as a `name: 'value'` key-value entry in a hash.
 
-### disallowed\_ssl\_protocols _(optional)_
+### disallowed_ssl_protocols _(optional)_
 
 If provided, this parameter is expected to be an array of strings identifying SSL/TLS protocols that you wish not to allow.
 
@@ -38,7 +39,7 @@ Newer protocol identification strings (when available) may be provided in the se
 
 For additional information, see the [AWS API reference for CloudFront distributions](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_distribution.html) documentation. For available SSL/TLS version identifiers, see [OriginSslProtocols](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_OriginSslProtocols.html) and [AWS::CloudFront::distribution ViewerCertificate](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-viewercertificate.html) documentation.
 
-### origin\_domain\_name _(optional)_
+### origin_domain_name _(optional)_
 
 The domain name for the origin.
 
@@ -51,7 +52,7 @@ Provide the `origin_domain_name` if you want to validate the `s3_origin_path` pr
 
 outputText1 = '''
 
-# aws\_cloudfront\_distribution
+# aws_cloudfront_distribution
 
 Use the `aws_cloudfront_distribution` InSpec audit resource to test the properties of a single AWS CloudFront distribution.
 
@@ -71,26 +72,26 @@ Ensure that an `aws_cloudfront_distribution` exists:
 
 ## Parameters
 
-### distribution\_id _(required)_
+`distribution_id` _(required)_
 
-The CloudFront distribution ID, which can be passed either as a string or as a `name: 'value'` key-value entry in a hash.
+: The CloudFront distribution ID, which can be passed either as a string or as a `name: 'value'` key-value entry in a hash.
 
-### disallowed\_ssl\_protocols _(optional)_
+`disallowed_ssl_protocols` _(optional)_
 
-If provided, this parameter is expected to be an array of strings identifying SSL/TLS protocols that you wish not to allow.
+: If provided, this parameter is expected to be an array of strings identifying SSL/TLS protocols that you wish not to allow.
 
-Included in the array should be the union of disallowed identifiers for:
+: Included in the array should be the union of disallowed identifiers for:
 
-- custom origin SSL/TLS protocols (currently SSLv3 | TLSv1 | TLSv1.1 | TLSv1.2)
-- identifiers for the minimum SSL/TLS protocol in the Viewer Certificate that CloudFront can use to communicate with viewers (currently SSLv3 | TLSv1 | TLSv1_1026 | TLSv1.1_2016 | TLSv1.2_2018 | TLSv1.2_2019 | TLSv1.2_2021).
+: - custom origin SSL/TLS protocols (currently SSLv3 | TLSv1 | TLSv1.1 | TLSv1.2)
+  - identifiers for the minimum SSL/TLS protocol in the Viewer Certificate that CloudFront can use to communicate with viewers (currently SSLv3 | TLSv1 | TLSv1_1026 | TLSv1.1_2016 | TLSv1.2_2018 | TLSv1.2_2019 | TLSv1.2_2021).
 
-Newer protocol identification strings (when available) may be provided in the set, as validity is not checked. The default value for disallowed_ssl_protocols is `%w{SSLv3 TLSv1 TLSv1_2016}`.
+: Newer protocol identification strings (when available) may be provided in the set, as validity is not checked. The default value for disallowed_ssl_protocols is `%w{SSLv3 TLSv1 TLSv1_2016}`.
 
-### origin\_domain\_name _(optional)_
+`origin_domain_name` _(optional)_
 
-The domain name for the origin.
+: The domain name for the origin.
 
-Provide the `origin_domain_name` if you want to validate the `s3_origin_path` property.
+: Provide the `origin_domain_name` if you want to validate the `s3_origin_path` property.
 
 ## Properties
 
@@ -98,7 +99,14 @@ Provide the `origin_domain_name` if you want to validate the `s3_origin_path` pr
 '''
 
 def testAwsMoveLink1():
-    assert moveAWSLink(inputText1) == (outputText1, True)
+    pageText, pageTextMoved = moveAWSLink(inputText1)
+    startEnd = openBlock(pageText, 'Parameters')
+    outputText, errorText = mungeParametersBlock(pageText, startEnd['start'], startEnd['end'])
+    print(outputText)
+    print(errorText)
+    assert outputText == outputText1
+    assert errorText == ''
+    assert pageTextMoved == True
 
 
 inputText2 = '''# aws_alb
@@ -350,4 +358,126 @@ Use the `azure_container_registries` InSpec audit resource to test properties an
 '''
 
 def testAzureParameters():
-  assert azureCommonParameters(inputText6) == outputText6
+    assert azureCommonParameters(inputText6) == outputText6
+
+
+inputText7 = '''
+```ruby
+describe aws_alb(load_balancer_arn: 'arn:aws:elasticloadbalancing') do
+    it { should exist }
+end
+```
+
+## Parameters
+
+### load_balancer_arn _(required)_
+
+This resource accepts a single parameter, the ALB Arn which uniquely identifies the ALB.
+This can be passed either as a string or as a `load_balancer_arn: 'value'` key-value entry in a hash.
+
+## Properties
+
+`load_balancer_name`
+: The name of the load balancer.
+'''
+
+outputText7 = '''
+```ruby
+describe aws_alb(load_balancer_arn: 'arn:aws:elasticloadbalancing') do
+    it { should exist }
+end
+```
+
+## Parameters
+
+`load_balancer_arn` _(required)_
+
+: This resource accepts a single parameter, the ALB Arn which uniquely identifies the ALB.
+  This can be passed either as a string or as a `load_balancer_arn: 'value'` key-value entry in a hash.
+
+## Properties
+
+`load_balancer_name`
+: The name of the load balancer.
+'''
+
+def testMungeParametersBlock1():
+    startEnd = openBlock(inputText7, 'Parameters')
+    outputText, errorText = mungeParametersBlock(inputText7, startEnd['start'], startEnd['end'])
+    print(outputText)
+    print('error Text -->' + errorText + '<--')
+    assert outputText == outputText7
+    assert errorText == ''
+
+inputText8 = '''
+
+```ruby
+describe azure_container_group(resource_group: 'RESOURCE_GROUP_NAME', name: 'CONTAINER_GROUP_NAME') do
+  it  { should exist }
+end
+```
+
+## Parameters
+
+| Name           | Description                                                                      |
+|----------------|----------------------------------------------------------------------------------|
+| name           | Name of the Azure container group to test.                                      |
+| resource_group | Azure resource group that the targeted resource resides in. `MyResourceGroup`|
+
+The parameter set should be provided for a valid query:
+- `resource_group` and `name`
+
+## Properties
+
+`id`
+: The resource ID.
+
+`name`
+: The container group name.
+
+`type`
+: The resource type.
+
+'''
+
+outputText8 = '''
+
+```ruby
+describe azure_container_group(resource_group: 'RESOURCE_GROUP_NAME', name: 'CONTAINER_GROUP_NAME') do
+  it  { should exist }
+end
+```
+
+## Parameters
+
+`name`
+: Name of the Azure container group to test.
+
+`resource_group`
+: Azure resource group that the targeted resource resides in. `MyResourceGroup`.
+
+The parameter set should be provided for a valid query:
+- `resource_group` and `name`
+
+## Properties
+
+`id`
+: The resource ID.
+
+`name`
+: The container group name.
+
+`type`
+: The resource type.
+
+'''
+
+
+def testMungeParametersBlock2():
+    startEnd = openBlock(inputText8, 'Parameters')
+    print(startEnd['start'], startEnd['end'])
+    outputText, errorText = mungeParametersBlock(inputText8, startEnd['start'], startEnd['end'])
+    print(outputText)
+    print('error Text -->' + errorText + '<--')
+    assert outputText == outputText8
+    assert errorText == ''

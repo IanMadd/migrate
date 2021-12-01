@@ -65,7 +65,7 @@ def mungeFile(filePath):
 
     ## Azure REST API Version, Endpoint, and HTTP Client Parameters
     if "inspec-azure" in repo:
-        fileText = munge.azureParameters.azureCommonParameters(fileText)
+        fileText = munge.parameters.azureCommonParameters(fileText)
 
     ## Examples
     examplesBlock = munge.misc.openBlock(fileText, "Examples")
@@ -75,6 +75,19 @@ def mungeFile(filePath):
         fileOutputLog = munge.output.log('Missing examples heading -----> ' + page , fileOutputLog)
 
     ## Parameters
+    startEnd = munge.misc.openBlock(fileText, "Parameters")
+    if startEnd["start"] != None and startEnd["end"] != None:
+        fileText, errorText = munge.parameters.mungeParametersBlock(fileText, startEnd['start'], startEnd['end'])
+        if errorText != '':
+            fileOutputLog = munge.output.log(errorText, fileOutputLog)
+    else:
+        fileOutputLog = munge.output.log('Missing Parameters heading -----> ' + page , fileOutputLog)
+
+
+    ### Azure Parameters
+    fileText = munge.parameters.azureCommonParameters(fileText)
+
+    ### AWS Parameters
     if "inspec-aws" in repo:
         outputText, movedLink = munge.parameters.moveAWSLink(fileText)
         if movedLink:
@@ -82,13 +95,6 @@ def mungeFile(filePath):
         else:
             outputLogText = "Did NOT move link to AWS API documentation in " + str(page)
             fileOutputLog = munge.output.log(outputLogText, fileOutputLog)
-
-
-    ### Azure Parameters
-    fileText = munge.parameters.azureCommonParameters(fileText)
-
-    ### AWS Parameters
-
 
     ## Properties
     startEnd = munge.misc.openBlock(fileText, "Properties")
