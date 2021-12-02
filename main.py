@@ -8,7 +8,7 @@ inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/content/inspec/resources"
 
 
-def mungeFile(filePath):
+def mungeFile(filePath, branch):
 
     page, repo = munge.misc.returnPageAndRepo(filePath)
 
@@ -140,13 +140,23 @@ def mungeFile(filePath):
             fileOutputLog = munge.output.log("Azure Permissions text not replaced in " + str(filePath) + ". Azure Permissions heading not found.\n", fileOutputLog)
             fileOutputLog = munge.output.log("Azure Permission StartEnd: " + str(startEnd) + "\n\n", fileOutputLog)
 
+    ## Audit Text
+    for frontMatterToml in re.finditer(r"^\+\+\+", fileText, re.M):
+        pass
+
+    frontMatterTomlEnd = frontMatterToml.end()
+
+    auditText = munge.audit.returnAuditText(filePath, page, branch)
+    fileText = fileText[:frontMatterTomlEnd] + auditText + fileText[frontMatterTomlEnd:]
+
     return fileText, fileOutputLog
 
 def run():
     outputLog = ''
+    branch = "im/hugo"
     for resourceRepo in repoList:
         munge.repo.pullRepo(resourceRepo)
-        munge.repo.newBranch(resourceRepo, 'im/hugo')
+        munge.repo.newBranch(resourceRepo, branch)
 
 
     ## add standard files "archetypes", "go.mod" to Hugo branch
@@ -177,7 +187,7 @@ def run():
                 print(page)
                 print(inputFilePath)
 
-                fileText, fileOutputLog = mungeFile(inputFilePath)
+                fileText, fileOutputLog = mungeFile(inputFilePath, branch)
                 outputLog += str(inputFilePath) + '\n' + fileOutputLog + '\n\n'
 
                 munge.openClose.outputFile(outputFilePath, fileText)
