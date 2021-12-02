@@ -75,14 +75,6 @@ def mungeFile(filePath):
         fileOutputLog = munge.output.log('Missing examples heading -----> ' + page , fileOutputLog)
 
     ## Parameters
-    startEnd = munge.misc.openBlock(fileText, "Parameters")
-    if startEnd["start"] != None and startEnd["end"] != None:
-        fileText, errorText = munge.parameters.mungeParametersBlock(fileText, startEnd['start'], startEnd['end'])
-        if errorText != '':
-            fileOutputLog = munge.output.log(errorText, fileOutputLog)
-    else:
-        fileOutputLog = munge.output.log('Missing Parameters heading -----> ' + page , fileOutputLog)
-
 
     ### Azure Parameters
     fileText = munge.parameters.azureCommonParameters(fileText)
@@ -95,6 +87,14 @@ def mungeFile(filePath):
         else:
             outputLogText = "Did NOT move link to AWS API documentation in " + str(page)
             fileOutputLog = munge.output.log(outputLogText, fileOutputLog)
+
+    startEnd = munge.misc.openBlock(fileText, "Parameters")
+    if startEnd["start"] != None and startEnd["end"] != None:
+        fileText, errorText = munge.parameters.mungeParametersBlock(fileText, startEnd['start'], startEnd['end'])
+        if errorText != '':
+            fileOutputLog = munge.output.log(errorText, fileOutputLog)
+    else:
+        fileOutputLog = munge.output.log('Missing Parameters heading -----> ' + page , fileOutputLog)
 
     ## Properties
     startEnd = munge.misc.openBlock(fileText, "Properties")

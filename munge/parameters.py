@@ -57,7 +57,6 @@ def moveAWSLink(pageText):
 
             parametersText = parametersText[:awsLinkTextStart].rstrip() + '\n\n' + parametersText[nextBlankLineStart:].lstrip()
 
-            print("starts here -->>" + parametersText.strip()  + "<< -- end here")
             if parametersText.strip() == "":
                 print('empty')
                 parametersText = "The resource does not require any parameters."
@@ -84,17 +83,16 @@ def azureCommonParameters(text):
 
     return text
 
-def fixHeadingParameters(textList):
+def fixHeadingParameters(text):
     ## Replace parameters that are headings so they're inline code.
     ## Followed by a definition list of each parameter definition.
 
+    textList = text.splitlines(True)
     foundFirstParameter = False
     wrapLinesCount = 0
 
     for index, line in enumerate(textList):
-        print(line)
         headingParameterRegex = r"^#+ ([\w|\\]+)"
-
         substParameter = "`\\g<1>`"
         regexEmptyLine = r"^ *\n"
         regexNormalLine = r"^"
@@ -120,15 +118,16 @@ def fixHeadingParameters(textList):
                 if not re.search(seeAlsoTheLineRegex, line):
                     textList[index] = re.sub(regexNormalLine, substWrapLine, line, 1, re.M)
 
-    return textList
+    parametersText = "".join(textList)
+
+    return parametersText
 
 def processParametersTable(text):
     errorText = ''
     defintionListText = ''
     tableStartEnd = tableToDict.findTableInText(text)
     tableText = text[tableStartEnd['start']:tableStartEnd['end']]
-    
-    print("This is the table -->" + tableText + '<<---- ENd table')
+
     if tableToDict.goodTable(tableText):
         parametersDict, errorText = tableToDict.convertTableToDict(tableText)
         defintionListText = dictToDefinition.convertDictToDef(parametersDict)
@@ -140,20 +139,55 @@ def processParametersTable(text):
 
     return text, errorText
 
+def processParametersInlineCode(text):
+    textList = text.splitlines(True)
+    wrapLinesCount = 0
+    inlineParamRegex = r"^`\w+`"
+    emptyLineRegex = r"^ {0,}$"
+    definitionTextRegex = r"^(\w)"
+    multilineDefinitionTextSubst = "  \g<1>"
+    firstLineDefinitionTextSubst = ": \g<1>"
+
+    for index, line in enumerate(textList):
+        if re.search(inlineParamRegex, line, re.M):
+            wrapLinesCount = 0
+            continue
+        elif re.match(emptyLineRegex, line, re.M):
+            wrapLinesCount = 0
+        else:
+            if wrapLinesCount >= 1:
+                textList[index] = re.sub(definitionTextRegex, multilineDefinitionTextSubst, line, 1, re.M)
+                wrapLinesCount += 1
+            else:
+                textList[index] = re.sub(definitionTextRegex, firstLineDefinitionTextSubst, line, 1, re.M)
+                wrapLinesCount += 1
+
+    text = "".join(textList)
+
+    return text
+
 def mungeParametersBlock(pageText, start, end):
     errorText = ''
     parametersText = pageText[start:end]
     headingParameterRegex = r"^#+ ([\w|\\]+)"
     tableParametersRegex = r"^ {0,}\|"
+    inlineCodeParamRegex = r"^`\w+`"
+    noParametersText1 = "This resource does not expect any parameters."
+    noParametersText2 = "This resource does not require any parameters."
+    noParametersText3 = "The resource does not require any parameters."
 
     if re.search(headingParameterRegex, parametersText, re.M):
-        textList = parametersText.splitlines(True)
-        textList = fixHeadingParameters(textList)
-        parametersText = "".join(textList)
+        parametersText = fixHeadingParameters(parametersText)
+
     elif re.search(tableParametersRegex, parametersText, re.M):
         parametersText, errors = processParametersTable(parametersText)
         if errors != '':
             errorText += errors
+    elif re.search(inlineCodeParamRegex, parametersText, re.M):
+        parametersText = processParametersInlineCode(parametersText)
+
+    elif noParametersText1 in parametersText or noParametersText2 in parametersText or noParametersText3 in parametersText:
+        pass
     else:
         errorText += "Didn't find any parameters to modify.\n\n" + parametersText
 

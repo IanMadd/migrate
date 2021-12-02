@@ -12,7 +12,7 @@ def fixFrontmatter(text):
   #Find and log bad yaml frontmatter lines
 
   if re.search(yamlSpaceRegex, text, re.M):
-    errorLogText += "Wrong YAML frontmatter:\n\n" + text + "\n\n"
+    errorLogText += "Bad YAML frontmatter:\n\n" + text + "\n\n"
     text = re.sub(yamlSpaceRegex, "---\n", text, 2, re.M)
     print(text)
 

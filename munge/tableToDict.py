@@ -61,10 +61,10 @@ def convertTableToDict(text):
     keys[0] = 'property'
 
   if keys[0] != 'property' or keys[1] != 'description':
-    errorText = 'Error. Incorrectly formatted table. Wrong headings: ' + text
+    errorText = 'Bad table. Wrong headings: ' + text
 
   if not re.search(tableColumnsLineRegex, lines[1]):
-    errorText = 'Error. Incorrectly formatted table: ' + text
+    errorText = 'Bad table: ' + text
 
   dictList = []
   if errorText == '':
@@ -73,9 +73,9 @@ def convertTableToDict(text):
 
       lineCount = line.count('|')
       if lineCount > len(keys) + 1:
-        errorText = 'Error. Incorrectly formatted table: ' + text
+        errorText = 'Bad table: ' + text
       elif lineCount == len(keys):
-        errorText = 'Error. Incorrectly formatted table: ' + text
+        errorText = 'Bad table: ' + text
 
       else:
         line = re.sub(startLineBarRegex, "", line, 1)

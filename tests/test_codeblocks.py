@@ -164,3 +164,28 @@ You can find detailed documentation at [Actions, Resources, and Condition Keys f
 
 def test_codeBlocks5():
   assert processCodeBlocks(codeBlock5) == codeBlock5Output
+
+
+codeBlock6 = '''
+### exist
+
+The control will pass if the describe returns at least one result.
+
+      it { should exist }
+
+'''
+
+codeBlock6Output = '''
+### exist
+
+The control will pass if the describe returns at least one result.
+
+```ruby
+it { should exist }
+```
+
+'''
+
+def test_codeBlocks6():
+  assert processCodeBlocks(codeBlock6) == codeBlock6Output
+

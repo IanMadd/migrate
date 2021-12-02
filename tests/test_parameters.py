@@ -481,3 +481,139 @@ def testMungeParametersBlock2():
     print('error Text -->' + errorText + '<--')
     assert outputText == outputText8
     assert errorText == ''
+
+inputText9 = '''
+
+Test that the base path mapping exists.
+
+    describe aws_apigateway_base_path_mapping(domain_name: 'DOMAIN_NAME', base_path: 'BASE_PATH') do
+      it { should exist }
+    end
+
+## Parameters
+
+`domain_name` _(required)_
+
+The domain name of the base path mapping resource to be described.
+
+`base_path` _(required)_
+
+The base path name that callers of the API must provide as part of the URL after the domain name.
+
+## Properties
+
+| Property | Description |
+| --- | --- |
+| base_path | The base path name that callers of the API must provide as part of the URL after the domain name. |
+| rest_api_id | The string identifier of the associated RestApi.|
+| stage | The name of the associated stage. |
+'''
+
+outputText9 = '''
+
+Test that the base path mapping exists.
+
+    describe aws_apigateway_base_path_mapping(domain_name: 'DOMAIN_NAME', base_path: 'BASE_PATH') do
+      it { should exist }
+    end
+
+## Parameters
+
+`domain_name` _(required)_
+
+: The domain name of the base path mapping resource to be described.
+
+`base_path` _(required)_
+
+: The base path name that callers of the API must provide as part of the URL after the domain name.
+
+## Properties
+
+| Property | Description |
+| --- | --- |
+| base_path | The base path name that callers of the API must provide as part of the URL after the domain name. |
+| rest_api_id | The string identifier of the associated RestApi.|
+| stage | The name of the associated stage. |
+'''
+
+
+def testMungeParametersBlock3():
+    startEnd = openBlock(inputText9, 'Parameters')
+    print(startEnd['start'], startEnd['end'])
+    outputText, errorText = mungeParametersBlock(inputText9, startEnd['start'], startEnd['end'])
+    print(outputText)
+    print('error Text -->' + errorText + '<--')
+    assert outputText == outputText9
+    assert errorText == ''
+
+
+
+inputText10 = '''
+
+Test that the base path mapping exists.
+
+    describe aws_apigateway_base_path_mapping(domain_name: 'DOMAIN_NAME', base_path: 'BASE_PATH') do
+      it { should exist }
+    end
+
+## Parameters
+
+`domain_name` _(required)_
+
+The domain name of the base path mapping resource to be described.
+
+`base_path` _(required)_
+
+The base path name that callers of the API must provide as part of the URL after the domain name.
+Nulla commodo consectetur excepteur id incididunt tempor veniam et dolor esse ullamco.
+
+Magna excepteur eu mollit et laboris labore do dolore veniam.
+
+## Properties
+
+| Property | Description |
+| --- | --- |
+| base_path | The base path name that callers of the API must provide as part of the URL after the domain name. |
+| rest_api_id | The string identifier of the associated RestApi.|
+| stage | The name of the associated stage. |
+'''
+
+outputText10 = '''
+
+Test that the base path mapping exists.
+
+    describe aws_apigateway_base_path_mapping(domain_name: 'DOMAIN_NAME', base_path: 'BASE_PATH') do
+      it { should exist }
+    end
+
+## Parameters
+
+`domain_name` _(required)_
+
+: The domain name of the base path mapping resource to be described.
+
+`base_path` _(required)_
+
+: The base path name that callers of the API must provide as part of the URL after the domain name.
+  Nulla commodo consectetur excepteur id incididunt tempor veniam et dolor esse ullamco.
+
+: Magna excepteur eu mollit et laboris labore do dolore veniam.
+
+## Properties
+
+| Property | Description |
+| --- | --- |
+| base_path | The base path name that callers of the API must provide as part of the URL after the domain name. |
+| rest_api_id | The string identifier of the associated RestApi.|
+| stage | The name of the associated stage. |
+'''
+
+
+def testMungeParametersBlock4():
+    startEnd = openBlock(inputText10, 'Parameters')
+    print(startEnd['start'], startEnd['end'])
+    outputText, errorText = mungeParametersBlock(inputText10, startEnd['start'], startEnd['end'])
+    print(outputText)
+    print('error Text -->' + errorText + '<--')
+    assert outputText == outputText10
+    assert errorText == ''

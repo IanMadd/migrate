@@ -31,7 +31,7 @@ inputTable2='''|Property       | Description|
 '''
 
 def test_convertTableToDict2():
-  assert convertTableToDict(inputTable2) == ('', 'Error. Incorrectly formatted table: ' + inputTable2)
+  assert convertTableToDict(inputTable2) == ('', 'Bad table: ' + inputTable2)
 
 
 inputTable3='''|Property       | Description|
@@ -44,7 +44,7 @@ inputTable3='''|Property       | Description|
 '''
 
 def test_convertTableToDict3():
-  assert convertTableToDict(inputTable3) == ('', 'Error. Incorrectly formatted table: ' + inputTable3)
+  assert convertTableToDict(inputTable3) == ('', 'Bad table: ' + inputTable3)
 
 inputTable4='''|Property       | Description | Field |
 | ---           | --- | --- |
@@ -57,7 +57,7 @@ inputTable4='''|Property       | Description | Field |
 
 
 def test_convertTableToDict4():
-  assert convertTableToDict(inputTable4) == ('', 'Error. Incorrectly formatted table: ' + inputTable4)
+  assert convertTableToDict(inputTable4) == ('', 'Bad table: ' + inputTable4)
 
 
 
@@ -81,10 +81,10 @@ inputTable6 = '''|Property                                    | Description     
 | vpc_ids                                   | The VPC IDs                                       | `vpc_id`          |
 | entries                                    | Provides access to the raw results of the query, which can be treated as an array of hashes. | Not Applicable | '''
 
-outputDict6 = ('', 'Error. Incorrectly formatted table: |Property                                    | Description                                       |   Field           |\n| ----------------------------               | ---------------------------------                 |   ---             |\n| route_table_ids                          | The route table IDs                               |\n| vpc_ids                                   | The VPC IDs                                       | `vpc_id`          |\n| entries                                    | Provides access to the raw results of the query, which can be treated as an array of hashes. | Not Applicable | ')
+outputDict6 = ('', 'Bad table: |Property                                    | Description                                       |   Field           |\n| ----------------------------               | ---------------------------------                 |   ---             |\n| route_table_ids                          | The route table IDs                               |\n| vpc_ids                                   | The VPC IDs                                       | `vpc_id`          |\n| entries                                    | Provides access to the raw results of the query, which can be treated as an array of hashes. | Not Applicable | ')
 
 def test_convertTableToDict6():
-  assert convertTableToDict(inputTable6) == ('', 'Error. Incorrectly formatted table: ' + inputTable6)
+  assert convertTableToDict(inputTable6) == ('', 'Bad table: ' + inputTable6)
 
 inputTable7 = '''
 
