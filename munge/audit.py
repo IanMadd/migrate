@@ -29,13 +29,12 @@ def returnAuditText(filePath, page, branch):
         githubSourcePageUrl = gitHubInspecEditedBaseUrl + inspecAwsUrl + "main/" + sourcePageDir + page
 
 
-    auditTextStart = '\n\n<div class="admonition-note">\n<p class="admonition-note-title">Audit Section</p>\n<div class="admonition-note-text">\n'
-    auditTextEnd = '</div>\n</div>\n\n'
+    auditTextStart = '\n\n<div class="admonition-note">\n<p class="admonition-note-title">Migration Links for Review</p>\n<div class="admonition-note-text">\n'
+    auditTextEnd = '</div>\n</div>\n'
 
-    sourcePageLinkText = "Source page: [" + page + "](" + githubSourcePageUrl + ")\n"
-    generatedPageLinkText = "Edited page: [" + page + "](" + githubEditedPageURL + ")\n"
+    sourcePageLinkText = '<p>Source page: <a href="' + githubSourcePageUrl + '">' + githubSourcePageUrl + '</a></p>\n'
+    generatedPageLinkText = '<p>Edited page: <a href="' + githubEditedPageURL + '">' + githubEditedPageURL + '</a></p>\n'
 
     auditText = auditTextStart + sourcePageLinkText + generatedPageLinkText + auditTextEnd
-    print(auditText)
 
     return auditText
