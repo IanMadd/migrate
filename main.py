@@ -155,7 +155,7 @@ def run():
     outputLog = ''
     branch = "im/hugo"
     for resourceRepo in repoList:
-        munge.repo.pullRepo(resourceRepo)
+        munge.repo.pullRepo(resourceRepo, branch)
         munge.repo.newBranch(resourceRepo, branch)
 
 
@@ -196,4 +196,4 @@ def run():
 
 def resetRepos():
     for resourceRepo in repoList:
-        munge.repo.pullRepo(resourceRepo)
+        munge.repo.pullRepo(resourceRepo, "im/hugo")
