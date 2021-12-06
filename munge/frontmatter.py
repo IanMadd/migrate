@@ -41,7 +41,7 @@ def fixFrontmatter(text):
     errorLogText += "Missing proper title: " + str(frontmatter) + "\n"
 
   else:
-    menuParent = identifierBaseString + frontmatter["platform"]
+    menuParent = identifierBaseString + frontmatter["platform"].lower()
     menuIdentifier = menuParent + "/" + title.group(0)
 
     #make menu frontmatter
