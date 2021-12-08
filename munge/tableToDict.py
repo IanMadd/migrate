@@ -52,9 +52,9 @@ def convertTableToDict(text):
     keys.remove('')
 
   # The field column gets called different things, so standardize it to just "field"
-  possibleFieldValues = ['Filter Criteria', 'field']
+  possibleFieldValues = ['filtercriteria', 'field']
   if len(keys) == 3:
-    if possibleFieldValues[0] or possibleFieldValues[1] in keys[2]:
+    if possibleFieldValues[0] in keys[2] or possibleFieldValues[1] in keys[2]:
       keys[2] = 'field'
 
   if keys[0] == 'properties' or keys[0] == 'name':

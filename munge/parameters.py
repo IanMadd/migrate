@@ -175,6 +175,8 @@ def mungeParametersBlock(pageText, start, end):
     noParametersText1 = "This resource does not expect any parameters."
     noParametersText2 = "This resource does not require any parameters."
     noParametersText3 = "The resource does not require any parameters."
+    noParametersText4 = "This resource does not accept any parameters."
+    noParametersTextList = [noParametersText1, noParametersText2, noParametersText3, noParametersText4]
 
     if re.search(headingParameterRegex, parametersText, re.M):
         parametersText = fixHeadingParameters(parametersText)
@@ -185,11 +187,16 @@ def mungeParametersBlock(pageText, start, end):
             errorText += errors
     elif re.search(inlineCodeParamRegex, parametersText, re.M):
         parametersText = processParametersInlineCode(parametersText)
-
-    elif noParametersText1 in parametersText or noParametersText2 in parametersText or noParametersText3 in parametersText:
-        pass
     else:
-        errorText += "Didn't find any parameters to modify.\n\n" + parametersText
+        foundNoParametersText = False
+        for text in noParametersTextList:
+            if text in parametersText:
+                parametersText = '\n\nThis resource does not accept any parameters.\n\n'
+                foundNoParametersText = True
+                break
+
+        if not foundNoParametersText:
+            errorText += "Didn't find any parameters to modify.\n\n" + parametersText
 
     pageText = pageText[:start] + parametersText + pageText[end:]
 

@@ -130,3 +130,23 @@ outputDict9 =([
 
 def test_convertTableToDict9():
   assert convertTableToDict(inputTable9) == outputDict9
+
+inputTable10 = '''| Name              | Description                                                                                                                                                         | Example                                |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------|
+| resource          | Azure resource type that the targeted resource belongs to.                                                                                                          | `users`                                |
+| id                | Globally unique ID of the targeted resource.                                                                                                                        | `jdoe@contoso.com`                     |
+| select            | The list of query parameters defining which attributes that the resource will expose. If not provided then the predefined attributes will be returned from the API. | `['givenName', 'surname', 'department']` |
+| api_version       | API version of the GRAPH API to use when interrogating the resource. If not set then the predefined stable version will be used.                                    | `v1.0`, `beta`                         |
+'''
+
+outputDict10 = ([
+    {'property': 'resource', 'description': 'Azure resource type that the targeted resource belongs to.', 'example': '`users`'},
+    {'property': 'id', 'description': 'Globally unique ID of the targeted resource.', 'example': '`jdoe@contoso.com`'},
+    {'property': 'select', 'description': 'The list of query parameters defining which attributes that the resource will expose. If not provided then the predefined attributes will be returned from the API.', 'example': "`['givenName', 'surname', 'department']`"},
+    {'property': 'api_version', 'description': 'API version of the GRAPH API to use when interrogating the resource. If not set then the predefined stable version will be used.', 'example': '`v1.0`, `beta`'}
+], '')
+
+def test_convertTableToDict10():
+    outputDict = convertTableToDict(inputTable10)
+    print(outputDict)
+    assert outputDict == outputDict10
