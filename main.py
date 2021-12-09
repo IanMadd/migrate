@@ -1,6 +1,8 @@
 import os, munge, re
 from pathlib import Path
 
+from munge import readme
+
 # repoList = ['../inspec-aws', '../inspec-azure']
 repoList = ['../forks/inspec-aws', '../forks/inspec-azure']
 
@@ -191,6 +193,11 @@ def run():
                 outputLog += str(inputFilePath) + '\n' + fileOutputLog + '\n\n'
 
                 munge.openClose.outputFile(outputFilePath, fileText)
+
+        readmeFilePath = Path(repo) / 'README.md'
+        readmeText = munge.openClose.openFile(readmeFilePath)
+        readmeText = readme.readmeLinks(readmeText)
+        munge.openClose.outputFile(readmeFilePath, readmeText)
 
     munge.openClose.outputFile('outputLog.txt', outputLog)
 
