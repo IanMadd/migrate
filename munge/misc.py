@@ -95,6 +95,8 @@ def formatLinks(text, repo):
         readmeSubstLink = '[README](https://github.com/inspec/inspec-azure/blob/main/README.md'
     elif "inspec-aws" in repo:
         readmeSubstLink = '[README](https://github.com/inspec/inspec-aws/blob/main/README.md'
+    elif "inspec-alicloud" in repo:
+        readmeSubstLink = '[README](https://github.com/inspec/inspec-alicloud/blob/main/README.md'
 
     text = re.sub(readmeLinkRegex, readmeSubstLink, text, 0, re.M)
 

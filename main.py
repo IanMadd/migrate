@@ -4,7 +4,8 @@ from pathlib import Path
 from munge import readme
 
 # repoList = ['../inspec-aws', '../inspec-azure']
-repoList = ['../forks/inspec-aws', '../forks/inspec-azure']
+# repoList = ['../forks/inspec-aws', '../forks/inspec-azure', '../forks/inspec-alicloud']
+repoList = ['../forks/inspec-alicloud']
 
 inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/content/inspec/resources"
@@ -203,4 +204,5 @@ def run():
 
 def resetRepos():
     for resourceRepo in repoList:
+        print(resourceRepo)
         munge.repo.pullRepo(resourceRepo, "im/hugo")

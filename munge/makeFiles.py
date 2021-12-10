@@ -24,6 +24,9 @@ def addStandardDocsFiles(repo):
     docsChefIoPath = repo + '/docs-chef-io'
     toolsDir = repo + '/docs/tools'
 
+    if not os.path.exists(toolsDir):
+        toolsDir = 'munge/files/vale/tools'
+
     platform = None
     if 'inspec-aws' in repo:
         platform = 'aws'
@@ -62,9 +65,15 @@ def addStandardDocsFiles(repo):
         copy_tree('munge/files/inspec-azure/', docsChefIoPath)
     elif platform == 'aws':
         copy_tree('munge/files/inspec-aws/', docsChefIoPath)
+    elif platform == 'alicloud':
+        copy_tree('munge/files/inspec-alicloud/', docsChefIoPath)
 
     ## Move Vale tools
     copy_tree(toolsDir, docsChefIoPath)
 
     ## Move vale.ini file
-    shutil.copy(repo + "/docs/.vale.ini", docsChefIoPath + '/.vale.ini')
+    valeIniFilePath = repo + "/docs/.vale.ini"
+    if not os.path.isfile(valeIniFilePath):
+        valeIniFilePath = 'munge/files/vale/.vale.ini'
+
+    shutil.copy(valeIniFilePath, docsChefIoPath + '/.vale.ini')

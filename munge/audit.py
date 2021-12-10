@@ -13,6 +13,7 @@ def returnAuditText(filePath, page, branch):
     gitHubIanMaddEditedBaseUrl = "https://github.com/ianmadd/"
     inspecAwsUrl = "inspec-aws/blob/"
     inspecAzureUrl = "inspec-azure/blob/"
+    inspecAlicloudUrl = "inspec-alicloud/blob/"
     editedPageHugoDir = "docs-chef-io/content/inspec/resources/"
     sourcePageDir = "docs/resources/"
 
@@ -27,7 +28,9 @@ def returnAuditText(filePath, page, branch):
     elif 'inspec-aws' in str(filePath):
         githubEditedPageURL = editedBaseUrl + inspecAwsUrl + branch + "/" + editedPageHugoDir + page
         githubSourcePageUrl = gitHubInspecEditedBaseUrl + inspecAwsUrl + "main/" + sourcePageDir + page
-
+    elif 'inspec-alicloud' in str(filePath):
+        githubEditedPageURL = editedBaseUrl + inspecAlicloudUrl + branch + "/" + editedPageHugoDir + page
+        githubSourcePageUrl = gitHubInspecEditedBaseUrl + inspecAlicloudUrl + "main/" + sourcePageDir + page
 
     auditTextStart = '\n\n<div class="admonition-note">\n<p class="admonition-note-title">Migration Links for Review</p>\n<div class="admonition-note-text">\n'
     auditTextEnd = '</div>\n</div>\n'

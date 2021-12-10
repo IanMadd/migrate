@@ -18,6 +18,10 @@ def pullRepo(filePath, editBranch):
         remoteSourceBranch = 'origin/main'
         repo.remotes.origin.pull('--ff')
 
+    if editBranch in repo.references:
+        repo.git.branch('-D', editBranch)
+
+    repo.git.checkout('-b', editBranch)
     repo.git.checkout(editBranch)
     repo.git.rebase(remoteSourceBranch)
 
