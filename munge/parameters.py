@@ -191,7 +191,7 @@ def mungeParametersBlock(pageText, start, end):
         foundNoParametersText = False
         for text in noParametersTextList:
             if text in parametersText:
-                parametersText = '\n\nThis resource does not accept any parameters.\n\n'
+                parametersText = '\n\nThis resource does not require any parameters.\n\n'
                 foundNoParametersText = True
                 break
 
