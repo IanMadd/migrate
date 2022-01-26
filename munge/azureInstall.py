@@ -2,7 +2,7 @@ import re
 from . import misc
 
 def replaceInstallHeadings(text):
-  regexAvail = r"^## Availability\n\n"
+  regexAvail = r"^#{1,3} Availability\n\n"
   substAvail = ""
 
   regexInstall = r"^### Installation\n"

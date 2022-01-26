@@ -4,8 +4,8 @@ from pathlib import Path
 from munge import readme
 
 # repoList = ['../inspec-aws', '../inspec-azure']
-# repoList = ['../forks/inspec-aws', '../forks/inspec-azure', '../forks/inspec-alicloud']
-repoList = ['../forks/inspec-alicloud']
+repoList = ['../forks/inspec-aws', '../forks/inspec-azure', '../forks/inspec-alicloud']
+# repoList = ['../forks/inspec-azure']
 
 inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/content/inspec/resources"
@@ -17,16 +17,6 @@ def mungeFile(filePath, branch):
 
     fileOutputLog = ''
     fileText = munge.openClose.openFile(filePath)
-
-    ## Sections that need processing:
-
-        ### Azure REST API version, endpoint and http client parameters
-        ### azure -> ## Availability
-        ### Parameters
-        ### Properties
-        ### Examples
-        ### Matchers
-        ### Azure Permissions
 
     ## Frontmatter
     fileText, returnFrontMatterErrorLogText = munge.frontmatter.fixFrontmatter(fileText)
