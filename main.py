@@ -3,9 +3,9 @@ from pathlib import Path
 
 from munge import readme
 
-# repoList = ['../inspec-aws', '../inspec-azure']
-repoList = ['../forks/inspec-aws', '../forks/inspec-azure', '../forks/inspec-alicloud']
-# repoList = ['../forks/inspec-azure']
+# repoList = ['../inspec-aws', '../inspec-azure', '../inspec-alicloud']
+# repoList = ['../forks/inspec-aws', '../forks/inspec-azure', '../forks/inspec-alicloud']
+repoList = ['../inspec-azure']
 
 inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/content/inspec/resources"
@@ -134,13 +134,13 @@ def mungeFile(filePath, branch):
             fileOutputLog = munge.output.log("Azure Permission StartEnd: " + str(startEnd) + "\n\n", fileOutputLog)
 
     ## Audit Text
-    for frontMatterToml in re.finditer(r"^\+\+\+", fileText, re.M):
-        pass
+    # for frontMatterToml in re.finditer(r"^\+\+\+", fileText, re.M):
+    #     pass
 
-    frontMatterTomlEnd = frontMatterToml.end()
+    # frontMatterTomlEnd = frontMatterToml.end()
 
-    auditText = munge.audit.returnAuditText(filePath, page, branch)
-    fileText = fileText[:frontMatterTomlEnd] + auditText + fileText[frontMatterTomlEnd:]
+    # auditText = munge.audit.returnAuditText(filePath, page, branch)
+    # fileText = fileText[:frontMatterTomlEnd] + auditText + fileText[frontMatterTomlEnd:]
 
     return fileText, fileOutputLog
 
