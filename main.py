@@ -11,7 +11,7 @@ inputDocsFilePath = "docs/resources/"
 outputDocsFilePath = "docs-chef-io/content/inspec/resources"
 
 
-def mungeFile(filePath, branch):
+def mungeFile(filePath):
 
     page, repo = munge.misc.returnPageAndRepo(filePath)
 
